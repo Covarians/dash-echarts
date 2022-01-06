@@ -5,7 +5,7 @@ using Dash
 const resources_path = realpath(joinpath( @__DIR__, "..", "deps"))
 const version = "0.0.12.1"
 
-include("dashecharts.jl")
+include("jl/''_dashecharts.jl")
 
 function __init__()
     DashBase.register_package(
