@@ -147,6 +147,7 @@ function DashECharts(props) {
         echarts.registerTransform(ecStat.transform.clustering);
 
         const myChart = echarts.init(chartRef.current)
+            // COV : change setOption to notMerge : true
         myChart.setOption(option, true, false)
         setChart(myChart)
 
@@ -198,6 +199,7 @@ function DashECharts(props) {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
+            // COV : change setOption to notMerge : true
             chart.setOption(option, true, false)
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
@@ -231,6 +233,7 @@ function DashECharts(props) {
         if (!ramda.isEmpty(chart)) {
             if (reset_id > 0) {
                 chart.clear()
+                    // COV : change setOption to notMerge : true
                 chart.setOption(option, true, false)
             }
         }
