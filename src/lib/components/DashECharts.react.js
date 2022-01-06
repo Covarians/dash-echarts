@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as gl from 'echarts-gl';
 import * as echarts from 'echarts';
@@ -11,25 +11,35 @@ import mapboxgl from 'mapbox-gl';
 
 const loadFuns = (obj) => {
     Object.keys(obj).forEach(key => {
-        if (typeof obj[key] === 'string' && !['chart','echarts', 'bmap', 'ramda', 'gl', 'ecStat', 'mapboxgl'].includes(key)) {
-            const fun = new Function("return "+obj[key].trim()+".bind(this)").bind(obj)
+        if (typeof obj[key] === 'string' && !['chart', 'echarts', 'bmap', 'ramda', 'gl', 'ecStat', 'mapboxgl'].includes(key)) {
+            const fun = new Function("return " + obj[key].trim() + ".bind(this)").bind(obj)
             obj[key] = fun();
         }
     })
 }
 
-function DashECharts(props)  {
+function DashECharts(props) {
     const {
         // eslint-disable-next-line no-unused-vars
-        n_clicks, n_clicks_timestamp, click_data,
+        n_clicks,
+        n_clicks_timestamp,
+        click_data,
         selected_data,
         brush_data,
         event,
         option,
-        style, id, setProps,
+        style,
+        id,
+        setProps,
         maps,
-        funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
-        mapbox_token, bmap_token,
+        funs,
+        fun_keys,
+        fun_values,
+        fun_paths,
+        fun_effects,
+        fun_prepares,
+        mapbox_token,
+        bmap_token,
         resize_id,
         reset_id,
     } = props;
@@ -64,11 +74,10 @@ function DashECharts(props)  {
                         if (fun_values.includes(v)) {
                             obj[key] = funs[v]
                         }
-                    }
-                    else if (typeof v === 'object') {
+                    } else if (typeof v === 'object') {
                         funConvertValues(v)
                     }
-                } 
+                }
             })
         }
     })
@@ -119,10 +128,10 @@ function DashECharts(props)  {
         funs.gl = gl;
         funs.ecStat = ecStat;
         loadFuns(funs)
-        if (!ramda.isEmpty(fun_prepares)) {funPreparesRun(option)}
-        if (!ramda.isEmpty(fun_keys)) {funConvertKeys(option)}
-        if (!ramda.isEmpty(fun_values)) {funConvertValues(option)}
-        if (!ramda.isEmpty(fun_paths)) {funConvertPaths(option)}
+        if (!ramda.isEmpty(fun_prepares)) { funPreparesRun(option) }
+        if (!ramda.isEmpty(fun_keys)) { funConvertKeys(option) }
+        if (!ramda.isEmpty(fun_values)) { funConvertValues(option) }
+        if (!ramda.isEmpty(fun_paths)) { funConvertPaths(option) }
         if (!ramda.isEmpty(fun_effects)) {
             fun_effects.forEach(e => {
                 if (typeof e === 'string') {
@@ -138,7 +147,7 @@ function DashECharts(props)  {
         echarts.registerTransform(ecStat.transform.clustering);
 
         const myChart = echarts.init(chartRef.current)
-        myChart.setOption(option)
+        myChart.setOption(option, true, false)
         setChart(myChart)
 
         funs.chart = myChart;
@@ -151,7 +160,7 @@ function DashECharts(props)  {
                 'name',
                 'dataIndex', 'data', 'dataType',
                 'value', 'color',
-                ], e)
+            ], e)
             data.n_clicks = clickCount;
             data.core_timestamp = ts;
             setProps({
@@ -189,7 +198,7 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            chart.setOption(option)
+            chart.setOption(option, true, false)
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
@@ -202,17 +211,16 @@ function DashECharts(props)  {
             }
             window.addEventListener('resize', resizeFunc);
             return () => {
-              window.removeEventListener('resize', resizeFunc)
+                window.removeEventListener('resize', resizeFunc)
             }
         }
-        return () => {
-        }
+        return () => {}
     }, [option])
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            if (resize_id>0) {
-                setTimeout(function () {
+            if (resize_id > 0) {
+                setTimeout(function() {
                     chart.resize()
                 }, 500)
             }
@@ -221,15 +229,18 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            if (reset_id>0) {
+            if (reset_id > 0) {
                 chart.clear()
-                chart.setOption(option)
+                chart.setOption(option, true, false)
             }
         }
     }, [reset_id])
 
-    return (
-        <div id={id} style={style} ref={chartRef}/>
+    return ( <
+        div id = { id }
+        style = { style }
+        ref = { chartRef }
+        />
     );
 }
 
