@@ -143,7 +143,6 @@ function DashECharts(props)  {
 
         funs.chart = myChart;
         myChart.on("click", e => {
-            console.log("COV3 CLICK " + JSON.stringify(e));
             const ts = Date.now()
             const clickCount = n_clicks + 1
             const data = ramda.pick([
@@ -163,18 +162,16 @@ function DashECharts(props)  {
             });
         });
         myChart.on("datazoom", e => {
-            console.log("COV1" + JSON.stringify(e));
             const ts = Date.now()
-            // const data = ramda.pick([
-            //     'start', 'end'
-            //     ], e)
-            const data = e;
+            const d = e.batch ? e.batch[0] : e;
+            const data = ramda.pick([
+                'start', 'end'
+            ], d);
             data.core_timestamp = ts;
             setProps({
                 //event: e.event.event,
                 zoom_data: data
             });
-            console.log("COV2" + JSON.stringify(e));
         });
         myChart.on("selectchanged", e => {
             const ts = Date.now()
