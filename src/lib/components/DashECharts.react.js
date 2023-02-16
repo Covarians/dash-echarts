@@ -166,8 +166,7 @@ function DashECharts(props)  {
             const ts = Date.now()
             const data = ramda.pick([
                 'type',
-                'start', 'end', 'startValue?',
-                'endValue?',
+                'start', 'end'
                 ], e)
             data.core_timestamp = ts;
             setProps({
