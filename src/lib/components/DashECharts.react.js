@@ -22,6 +22,7 @@ function DashECharts(props)  {
     const {
         // eslint-disable-next-line no-unused-vars
         n_clicks, n_clicks_timestamp, click_data,
+        zoom_data,
         selected_data,
         brush_data,
         event,
@@ -161,6 +162,19 @@ function DashECharts(props)  {
                 click_data: data
             });
         });
+        myChart.on("datazoom", e => {
+            const ts = Date.now()
+            const data = ramda.pick([
+                'type',
+                'start', 'end', 'startValue?',
+                'endValue?',
+                ], e)
+            data.core_timestamp = ts;
+            setProps({
+                //event: e.event.event,
+                zoom_data: data
+            });
+        });
         myChart.on("selectchanged", e => {
             const ts = Date.now()
             const data = ramda.pick([
@@ -239,6 +253,7 @@ DashECharts.defaultProps = {
     n_clicks: 0,
     n_clicks_timestamp: -1,
     click_data: {},
+    zoom_data: {},
     selected_data: {},
     brush_data: {},
     style: {},
@@ -260,6 +275,7 @@ DashECharts.propTypes = {
     n_clicks: PropTypes.number,
     n_clicks_timestamp: PropTypes.number,
     click_data: PropTypes.object,
+    zoom_data: PropTypes.object,
     selected_data: PropTypes.object,
     brush_data: PropTypes.object,
     style: PropTypes.object,

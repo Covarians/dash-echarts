@@ -59,6 +59,17 @@
           "computed": false
         }
       },
+      "zoom_data": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
       "selected_data": {
         "type": {
           "name": "object"
