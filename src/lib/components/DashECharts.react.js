@@ -171,7 +171,7 @@ function DashECharts(props)  {
                 ], e)
             data.core_timestamp = ts;
             setProps({
-                //event: e.event.event,
+                event: e.event.event,
                 zoom_data: data
             });
         });
