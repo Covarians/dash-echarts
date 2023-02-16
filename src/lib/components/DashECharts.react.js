@@ -165,9 +165,10 @@ function DashECharts(props)  {
         myChart.on("datazoom", e => {
             console.log("COV1" + JSON.stringify(e));
             const ts = Date.now()
-            const data = ramda.pick([
-                'start', 'end'
-                ], e)
+            // const data = ramda.pick([
+            //     'start', 'end'
+            //     ], e)
+            const data = e;
             data.core_timestamp = ts;
             setProps({
                 //event: e.event.event,
