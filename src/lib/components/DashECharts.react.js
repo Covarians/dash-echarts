@@ -21,8 +21,7 @@ const loadFuns = (obj) => {
 function DashECharts(props)  {
     const {
         // eslint-disable-next-line no-unused-vars
-        n_clicks, n_clicks_timestamp, click_data,
-        zoom_data,
+        n_clicks, n_clicks_timestamp, click_data, zoom_data,
         selected_data,
         brush_data,
         event,
@@ -163,16 +162,17 @@ function DashECharts(props)  {
             });
         });
         myChart.on("datazoom", e => {
+            console.log("COV1" + JSON.stringify(e));
             const ts = Date.now()
             const data = ramda.pick([
-                'type',
                 'start', 'end'
                 ], e)
             data.core_timestamp = ts;
             setProps({
-                event: e.event.event,
+                //event: e.event.event,
                 zoom_data: data
             });
+            console.log("COV2" + JSON.stringify(e));
         });
         myChart.on("selectchanged", e => {
             const ts = Date.now()

@@ -1,5 +1,12 @@
 # dash_echarts
 
+## COV :
+    clone
+    pip install dash
+    pip install pyyaml
+    npm install webpack
+    npm run build
+
 ## gallery
 
 if you install it via `pip install 'dash_echarts[play]'`, 
