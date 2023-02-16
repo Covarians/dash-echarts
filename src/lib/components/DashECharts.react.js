@@ -138,7 +138,7 @@ function DashECharts(props)  {
     useEffect(() => {
 
         const myChart = echarts.init(chartRef.current)
-        myChart.setOption(option)
+        myChart.setOption(option, true, false)
         setChart(myChart)
 
         funs.chart = myChart;
@@ -189,7 +189,7 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            chart.setOption(option)
+            chart.setOption(option, true, false)
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
@@ -223,7 +223,7 @@ function DashECharts(props)  {
         if (!ramda.isEmpty(chart)) {
             if (reset_id>0) {
                 chart.clear()
-                chart.setOption(option)
+                chart.setOption(option, true, false)
             }
         }
     }, [reset_id])
