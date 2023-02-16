@@ -143,6 +143,7 @@ function DashECharts(props)  {
 
         funs.chart = myChart;
         myChart.on("click", e => {
+            console.log("COV3 CLICK " + JSON.stringify(e));
             const ts = Date.now()
             const clickCount = n_clicks + 1
             const data = ramda.pick([
