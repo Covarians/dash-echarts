@@ -185,30 +185,14 @@ function DashECharts(props)  {
                 selected_data: data
             });
         })
-        // myChart.on("brushEnd", e => {
-        //     const ts = Date.now()
-        //     const data = ramda.pick([
-        //         'areas', 'brushId', 'type'
-        //     ], e)
-        //     data.core_timestamp = ts;
-        //     setProps({
-        //         brush_data: data
-        //     });
-        // })
-
-        myChart.getZr().on("brushEnd", params => {
-            var pointInPixel = [params.offsetX, params.offsetY];
-            var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
-            var category = myChart.getModel().get('xAxis')[0].data[pointInGrid[0]]
-            console.log(category);
-
-            // const ts = Date.now()
-            // const data = ramda.pick([
-            //     'areas', 'brushId', 'type'
-            // ], params)
-            // data.core_timestamp = ts;
+        myChart.on("brushEnd", e => {
+            const ts = Date.now()
+            const data = ramda.pick([
+                'areas', 'brushId', 'type'
+            ], e)
+            data.core_timestamp = ts;
             setProps({
-                brush_data: category
+                brush_data: data
             });
         })
 
