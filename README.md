@@ -1,11 +1,25 @@
 # dash_echarts
 
-## COV :
+## Covarians
+### 1. Clone repository and install packages :
     clone
     pip install dash
     pip install pyyaml
     npm install webpack
+
+### 2. Compile after modification :
     npm run build
+
+### 3. Commit and push with VSC Source Control tab.
+<br />
+
+### 4. To install in your dash project : 
+    pip install git+https://github.com/Covarians/dash-echarts@Dev_dataZoom
+
+### 5. Debug using the original source files :
+    Using Chrome DevTools : go to settings, check "Enable JavaScript source maps" under "Sources".
+
+<br /><br /><br />
 
 ## gallery
 

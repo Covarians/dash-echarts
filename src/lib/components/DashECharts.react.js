@@ -150,7 +150,7 @@ function DashECharts(props)  {
                 'seriesType', 'seriesIndex', 'seriesName',
                 'name',
                 'dataIndex', 'data', 'dataType',
-                'value', 'color',
+                'value', 'color', 'yAxisIndex',
                 ], e)
             data.n_clicks = clickCount;
             data.core_timestamp = ts;
