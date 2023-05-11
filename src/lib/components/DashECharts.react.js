@@ -185,16 +185,16 @@ function DashECharts(props)  {
                 selected_data: data
             });
         })
-        myChart.on("brushEnd", e => {
-            const ts = Date.now()
-            const data = ramda.pick([
-                'areas', 'brushId', 'type'
-            ], e)
-            data.core_timestamp = ts;
-            setProps({
-                brush_data: data
-            });
-        })
+        // myChart.on("brushEnd", e => {
+        //     const ts = Date.now()
+        //     const data = ramda.pick([
+        //         'areas', 'brushId', 'type'
+        //     ], e)
+        //     data.core_timestamp = ts;
+        //     setProps({
+        //         brush_data: data
+        //     });
+        // })
 
         myChart.getZr().on("brushEnd", params => {
             var pointInPixel = [params.offsetX, params.offsetY];
