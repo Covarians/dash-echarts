@@ -92,6 +92,17 @@
           "computed": false
         }
       },
+      "brushSelected_data": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
       "style": {
         "type": {
           "name": "object"

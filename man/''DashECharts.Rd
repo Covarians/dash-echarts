@@ -10,8 +10,9 @@
 }
 
 \usage{
-''DashECharts(id=NULL, bmap_token=NULL, brush_data=NULL, click_data=NULL,
-event=NULL, fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
+''DashECharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
+brush_data=NULL, click_data=NULL, event=NULL,
+fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
 fun_prepares=NULL, fun_values=NULL, funs=NULL,
 mapbox_token=NULL, maps=NULL, n_clicks=NULL,
 n_clicks_timestamp=NULL, option=NULL, reset_id=NULL,
@@ -23,6 +24,8 @@ zoom_data=NULL)
 \item{id}{Character. The ID used to identify this component in Dash callbacks.}
 
 \item{bmap_token}{Character. }
+
+\item{brushSelected_data}{Named list. }
 
 \item{brush_data}{Named list. }
 

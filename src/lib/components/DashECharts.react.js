@@ -24,6 +24,7 @@ function DashECharts(props)  {
         n_clicks, n_clicks_timestamp, click_data, zoom_data,
         selected_data,
         brush_data,
+        brushSelected_data,
         event,
         option,
         style, id, setProps,
@@ -195,6 +196,16 @@ function DashECharts(props)  {
                 brush_data: data
             });
         })
+        myChart.on("brushSelected", e => {
+            const ts = Date.now()
+            const data = ramda.pick([
+                'areas', 'brushId', 'type', 'selected'
+            ], e)
+            data.core_timestamp = ts;
+            setProps({
+                brushSelected_data: data
+            });
+        })
 
     }, []);
 
@@ -254,6 +265,7 @@ DashECharts.defaultProps = {
     zoom_data: {},
     selected_data: {},
     brush_data: {},
+    brushSelected_data: {},
     style: {},
     option: {},
     maps: {},
@@ -276,6 +288,7 @@ DashECharts.propTypes = {
     zoom_data: PropTypes.object,
     selected_data: PropTypes.object,
     brush_data: PropTypes.object,
+    brushSelected_data: PropTypes.object,
     style: PropTypes.object,
     event: PropTypes.object,
     option: PropTypes.object,
