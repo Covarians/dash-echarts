@@ -7,16 +7,20 @@
     pip install pyyaml
     npm install webpack
 
-### 2. Compile after modification :
+### 2. Change version number :
+    Change version number in package.json only.
+
+### 3. Compile after modification :
+    npm install
     npm run build
 
-### 3. Commit and push with VSC Source Control tab.
+### 4. Commit and push with VSC Source Control tab.
 <br />
 
-### 4. To install in your dash project : 
+### 5. To install in your dash project : 
     pip install git+https://github.com/Covarians/dash-echarts@Dev_dataZoom
 
-### 5. Debug using the original source files :
+### 6. Debug using the original source files :
     Using Chrome DevTools : go to settings, check "Enable JavaScript source maps" under "Sources".
 
 <br /><br /><br />
