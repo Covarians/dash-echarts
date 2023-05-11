@@ -190,14 +190,25 @@ function DashECharts(props)  {
             const data = ramda.pick([
                 'areas', 'brushId', 'type'
             ], e)
-            var coord = [100, 100];
-            var point = myChart.convertFromPixel('grid', coord);
-            var category = myChart.getModel().get('xAxis')[0].data[point[0]];
-            console.log(category);
-
             data.core_timestamp = ts;
             setProps({
                 brush_data: data
+            });
+        })
+
+        myChart.getZr().on("brushEnd", params => {
+            var pointInPixel = [params.offsetX, params.offsetY];
+            var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
+            var category = myChart.getModel().get('xAxis')[0].data[pointInGrid[0]]
+            console.log(category);
+
+            // const ts = Date.now()
+            // const data = ramda.pick([
+            //     'areas', 'brushId', 'type'
+            // ], params)
+            // data.core_timestamp = ts;
+            setProps({
+                brush_data: category
             });
         })
 
