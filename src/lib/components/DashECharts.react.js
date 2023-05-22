@@ -140,6 +140,7 @@ function DashECharts(props)  {
 
         const myChart = echarts.init(chartRef.current)
         myChart.setOption(option, true, false)
+        console.log("setOption 1/3.")
         setChart(myChart)
 
         funs.chart = myChart;
@@ -207,12 +208,29 @@ function DashECharts(props)  {
             });
         })
 
+        // myChart.getZr().on("brushEnd", params => {
+        //     var pointInPixel = [params.offsetX, params.offsetY];
+        //     var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
+        //     var category = myChart.getModel().get('xAxis')[0].data[pointInGrid[0]]
+        //     console.log(category);
+
+        //     // const ts = Date.now()
+        //     // const data = ramda.pick([
+        //     //     'areas', 'brushId', 'type'
+        //     // ], params)
+        //     // data.core_timestamp = ts;
+        //     setProps({
+        //         brush_data: category
+        //     });
+        // })
+
     }, []);
 
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             chart.setOption(option, true, false)
+            console.log("setOption 2/3.")
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
@@ -247,6 +265,7 @@ function DashECharts(props)  {
             if (reset_id>0) {
                 chart.clear()
                 chart.setOption(option, true, false)
+                console.log("setOption 3/3.")
             }
         }
     }, [reset_id])
