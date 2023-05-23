@@ -26,7 +26,7 @@ function DashECharts(props)  {
         brush_data,
         brushSelected_data,
         event,
-        option,
+        option, opt_merge,
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -140,7 +140,6 @@ function DashECharts(props)  {
 
         const myChart = echarts.init(chartRef.current)
         myChart.setOption(option, true, false)
-        console.log("setOption 1/3.")
         setChart(myChart)
 
         funs.chart = myChart;
@@ -225,12 +224,12 @@ function DashECharts(props)  {
         // })
 
     }, []);
+    // useEffect on empty array : will only run after the initial render (twice in debug).
 
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             chart.setOption(option, true, false)
-            console.log("setOption 2/3.")
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
@@ -252,6 +251,15 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
+            // notMerge = false, to merge passed opt data.
+            chart.setOption(opt_merge, false, false)
+        }
+        return () => {
+        }
+    }, [opt_merge])
+
+    useEffect(() => {
+        if (!ramda.isEmpty(chart)) {
             if (resize_id>0) {
                 setTimeout(function () {
                     chart.resize()
@@ -265,7 +273,6 @@ function DashECharts(props)  {
             if (reset_id>0) {
                 chart.clear()
                 chart.setOption(option, true, false)
-                console.log("setOption 3/3.")
             }
         }
     }, [reset_id])
@@ -287,6 +294,7 @@ DashECharts.defaultProps = {
     brushSelected_data: {},
     style: {},
     option: {},
+    opt_merge: {},
     maps: {},
     fun_keys: [],
     fun_values: [],
@@ -311,6 +319,7 @@ DashECharts.propTypes = {
     style: PropTypes.object,
     event: PropTypes.object,
     option: PropTypes.object,
+    opt_merge: PropTypes.object,
     maps: PropTypes.object,
     funs: PropTypes.object,
     fun_keys: PropTypes.array,

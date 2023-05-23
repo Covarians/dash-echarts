@@ -132,6 +132,17 @@
           "computed": false
         }
       },
+      "opt_merge": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
       "maps": {
         "type": {
           "name": "object"

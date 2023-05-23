@@ -10,17 +10,37 @@
 ### 2. Change version number :
     Change version number in package.json only.
 
-### 3. Compile after modification :
+### 3. Modify :
+    To create a new property, you only have to add it in src/lib/components/DashECharts.react.js in 3 places :
+        1. function DashECharts(props)  {const {}}
+        2. DashECharts.defaultProps
+        3. DashECharts.propTypes
+
+    All the other files containing the properties will be updated when compiling (see 4.).
+
+
+    To get an effect when the property "new_prop" is modified, add a useEffect block in function DashECharts(props)  {const {}} as follows :
+```python
+useEffect(() => {
+    if (!ramda.isEmpty(chart)) {
+        // Your code here, use variable new_prop to get the new value.
+    }
+    return () => {
+    }
+}, [new_prop])
+```
+
+### 4. Compile :
     npm install
     npm run build
 
-### 4. Commit and push with VSC Source Control tab.
+### 5. Commit and push with VSC Source Control tab.
 <br />
 
-### 5. To install in your dash project : 
+### 6. To install in your dash project : 
     pip install git+https://github.com/Covarians/dash-echarts@Dev_dataZoom
 
-### 6. Debug using the original source files :
+### 7. Debug using the original source files :
     Using Chrome DevTools : go to settings, check "Enable JavaScript source maps" under "Sources".
 
 <br /><br /><br />

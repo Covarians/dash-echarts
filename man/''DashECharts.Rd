@@ -15,9 +15,9 @@ brush_data=NULL, click_data=NULL, event=NULL,
 fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
 fun_prepares=NULL, fun_values=NULL, funs=NULL,
 mapbox_token=NULL, maps=NULL, n_clicks=NULL,
-n_clicks_timestamp=NULL, option=NULL, reset_id=NULL,
-resize_id=NULL, selected_data=NULL, style=NULL,
-zoom_data=NULL)
+n_clicks_timestamp=NULL, opt_merge=NULL, option=NULL,
+reset_id=NULL, resize_id=NULL, selected_data=NULL,
+style=NULL, zoom_data=NULL)
 }
 
 \arguments{
@@ -52,6 +52,8 @@ zoom_data=NULL)
 \item{n_clicks}{Numeric. }
 
 \item{n_clicks_timestamp}{Numeric. }
+
+\item{opt_merge}{Named list. }
 
 \item{option}{Named list. }
 
