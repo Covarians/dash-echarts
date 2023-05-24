@@ -253,20 +253,20 @@ function DashECharts(props)  {
         if (!ramda.isEmpty(chart)) {
             // notMerge = false, to merge passed opt data.
             chart.setOption(opt_merge, false, false)
-            const resizeFunc = () => {
-                if (!ramda.isEmpty(chart)) {
-                    chart.resize();
-                    const ts = Date.now()
-                    setProps({
-                        n_resizes: ts,
-                        n_clicks_timestamp: ts,
-                    });
-                }
-            }
-            window.addEventListener('resize', resizeFunc);
-            return () => {
-              window.removeEventListener('resize', resizeFunc)
-            }
+            // const resizeFunc = () => {
+            //     if (!ramda.isEmpty(chart)) {
+            //         chart.resize();
+            //         const ts = Date.now()
+            //         setProps({
+            //             n_resizes: ts,
+            //             n_clicks_timestamp: ts,
+            //         });
+            //     }
+            // }
+            // window.addEventListener('resize', resizeFunc);
+            // return () => {
+            //   window.removeEventListener('resize', resizeFunc)
+            // }
         }
         return () => {
         }
