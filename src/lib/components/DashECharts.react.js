@@ -267,8 +267,8 @@ function DashECharts(props)  {
             // return () => {
             //   window.removeEventListener('resize', resizeFunc)
             // }
-        }
-        return () => {
+        // }
+        // return () => {
         }
     }, [opt_merge])
 
