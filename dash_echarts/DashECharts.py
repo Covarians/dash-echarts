@@ -46,6 +46,8 @@ Keyword arguments:
 
 - option (dict; optional)
 
+- part_of_opt (dict; optional)
+
 - reset_id (number; default 0)
 
 - resize_id (number; default 0)
@@ -60,10 +62,10 @@ Keyword arguments:
     _namespace = 'dash_echarts'
     _type = 'DashECharts'
     @_explicitize_args
-    def __init__(self, resize_id=Component.UNDEFINED, reset_id=Component.UNDEFINED, n_clicks=Component.UNDEFINED, n_clicks_timestamp=Component.UNDEFINED, click_data=Component.UNDEFINED, zoom_data=Component.UNDEFINED, selected_data=Component.UNDEFINED, brush_data=Component.UNDEFINED, brushSelected_data=Component.UNDEFINED, style=Component.UNDEFINED, event=Component.UNDEFINED, option=Component.UNDEFINED, opt_merge=Component.UNDEFINED, maps=Component.UNDEFINED, funs=Component.UNDEFINED, fun_keys=Component.UNDEFINED, fun_values=Component.UNDEFINED, fun_paths=Component.UNDEFINED, fun_effects=Component.UNDEFINED, fun_prepares=Component.UNDEFINED, mapbox_token=Component.UNDEFINED, bmap_token=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'reset_id', 'resize_id', 'selected_data', 'style', 'zoom_data']
+    def __init__(self, resize_id=Component.UNDEFINED, reset_id=Component.UNDEFINED, n_clicks=Component.UNDEFINED, n_clicks_timestamp=Component.UNDEFINED, click_data=Component.UNDEFINED, zoom_data=Component.UNDEFINED, selected_data=Component.UNDEFINED, brush_data=Component.UNDEFINED, brushSelected_data=Component.UNDEFINED, style=Component.UNDEFINED, event=Component.UNDEFINED, option=Component.UNDEFINED, opt_merge=Component.UNDEFINED, part_of_opt=Component.UNDEFINED, maps=Component.UNDEFINED, funs=Component.UNDEFINED, fun_keys=Component.UNDEFINED, fun_values=Component.UNDEFINED, fun_paths=Component.UNDEFINED, fun_effects=Component.UNDEFINED, fun_prepares=Component.UNDEFINED, mapbox_token=Component.UNDEFINED, bmap_token=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'part_of_opt', 'reset_id', 'resize_id', 'selected_data', 'style', 'zoom_data']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'reset_id', 'resize_id', 'selected_data', 'style', 'zoom_data']
+        self.available_properties = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'part_of_opt', 'reset_id', 'resize_id', 'selected_data', 'style', 'zoom_data']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

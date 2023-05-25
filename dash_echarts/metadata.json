@@ -143,6 +143,17 @@
           "computed": false
         }
       },
+      "part_of_opt": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
       "maps": {
         "type": {
           "name": "object"

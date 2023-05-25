@@ -26,7 +26,7 @@ function DashECharts(props)  {
         brush_data,
         brushSelected_data,
         event,
-        option, opt_merge,
+        option, opt_merge, part_of_opt, 
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -229,7 +229,8 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            chart.setOption(option, true, false)
+            chart.setOption(option, true, false)            
+            if (option) part_of_opt = option.dataZoom;
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
@@ -252,7 +253,9 @@ function DashECharts(props)  {
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             // notMerge = false, to merge passed opt data.
-            chart.setOption(opt_merge, false, false)
+            chart.setOption(opt_merge, false, false);
+
+            if (option) part_of_opt = option.dataZoom;
             // const resizeFunc = () => {
             //     if (!ramda.isEmpty(chart)) {
             //         chart.resize();
@@ -309,6 +312,7 @@ DashECharts.defaultProps = {
     style: {},
     option: {},
     opt_merge: {},
+    part_of_opt: {},
     maps: {},
     fun_keys: [],
     fun_values: [],
@@ -334,6 +338,7 @@ DashECharts.propTypes = {
     event: PropTypes.object,
     option: PropTypes.object,
     opt_merge: PropTypes.object,
+    part_of_opt: PropTypes.object,
     maps: PropTypes.object,
     funs: PropTypes.object,
     fun_keys: PropTypes.array,

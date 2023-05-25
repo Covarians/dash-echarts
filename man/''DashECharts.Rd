@@ -16,8 +16,8 @@ fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
 fun_prepares=NULL, fun_values=NULL, funs=NULL,
 mapbox_token=NULL, maps=NULL, n_clicks=NULL,
 n_clicks_timestamp=NULL, opt_merge=NULL, option=NULL,
-reset_id=NULL, resize_id=NULL, selected_data=NULL,
-style=NULL, zoom_data=NULL)
+part_of_opt=NULL, reset_id=NULL, resize_id=NULL,
+selected_data=NULL, style=NULL, zoom_data=NULL)
 }
 
 \arguments{
@@ -56,6 +56,8 @@ style=NULL, zoom_data=NULL)
 \item{opt_merge}{Named list. }
 
 \item{option}{Named list. }
+
+\item{part_of_opt}{Named list. }
 
 \item{reset_id}{Numeric. }
 
