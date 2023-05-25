@@ -26,7 +26,7 @@ function DashECharts(props)  {
         brush_data,
         brushSelected_data,
         event,
-        option, opt_merge, part_of_opt, 
+        option, opt_merge, part_of_opt,
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -227,10 +227,18 @@ function DashECharts(props)  {
     // useEffect on empty array : will only run after the initial render (twice in debug).
 
 
+    change_part_of_opt = () => {
+        props.setState({ part_of_opt: option.dataZoom });
+      }
+
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             chart.setOption(option, true, false)            
-            if (option) part_of_opt = option.dataZoom;
+            if (option)
+            {
+                props.setState({ part_of_opt: option.dataZoom });
+                //props.change_part_of_opt();
+            }
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
