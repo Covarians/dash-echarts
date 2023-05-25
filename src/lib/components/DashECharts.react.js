@@ -229,11 +229,11 @@ function DashECharts(props)  {
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             chart.setOption(option, true, false)            
-            if (option)
-            {
-                props.setState({ part_of_opt: option.dataZoom });
-                //props.change_part_of_opt();
-            }
+            // if (option)
+            // {
+            //     chart.setChart({ part_of_opt: option.dataZoom });
+            //     //props.change_part_of_opt();
+            // }
             const resizeFunc = () => {
                 if (!ramda.isEmpty(chart)) {
                     chart.resize();
@@ -258,7 +258,6 @@ function DashECharts(props)  {
             // notMerge = false, to merge passed opt data.
             chart.setOption(opt_merge, false, false);
 
-            if (option) part_of_opt = option.dataZoom;
             // const resizeFunc = () => {
             //     if (!ramda.isEmpty(chart)) {
             //         chart.resize();
