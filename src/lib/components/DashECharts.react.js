@@ -226,11 +226,6 @@ function DashECharts(props)  {
     }, []);
     // useEffect on empty array : will only run after the initial render (twice in debug).
 
-
-    change_part_of_opt = () => {
-        props.setState({ part_of_opt: option.dataZoom });
-      }
-
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             chart.setOption(option, true, false)            
