@@ -27,6 +27,7 @@ function DashECharts(props)  {
         brushSelected_data,
         event,
         option, opt_merge, part_of_opt,
+        add_legend,
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -279,6 +280,38 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
+            var nb_series = option.series.length;
+
+            var opt =  {
+                title: {
+                    text: 'Number of series : ' + nb_series + " " + add_legend
+                },
+            };
+
+            // notMerge = false, to merge passed opt data.
+            chart.setOption(opt, false, false);
+
+            // const resizeFunc = () => {
+            //     if (!ramda.isEmpty(chart)) {
+            //         chart.resize();
+            //         const ts = Date.now()
+            //         setProps({
+            //             n_resizes: ts,
+            //             n_clicks_timestamp: ts,
+            //         });
+            //     }
+            // }
+            // window.addEventListener('resize', resizeFunc);
+            // return () => {
+            //   window.removeEventListener('resize', resizeFunc)
+            // }
+        // }
+        // return () => {
+        }
+    }, [add_legend])
+
+    useEffect(() => {
+        if (!ramda.isEmpty(chart)) {
             if (resize_id>0) {
                 setTimeout(function () {
                     chart.resize()
@@ -315,6 +348,7 @@ DashECharts.defaultProps = {
     option: {},
     opt_merge: {},
     part_of_opt: {},
+    add_legend: {},
     maps: {},
     fun_keys: [],
     fun_values: [],
@@ -341,6 +375,7 @@ DashECharts.propTypes = {
     option: PropTypes.object,
     opt_merge: PropTypes.object,
     part_of_opt: PropTypes.object,
+    add_legend: PropTypes.object,
     maps: PropTypes.object,
     funs: PropTypes.object,
     fun_keys: PropTypes.array,

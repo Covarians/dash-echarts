@@ -10,9 +10,9 @@
 }
 
 \usage{
-''DashECharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
-brush_data=NULL, click_data=NULL, event=NULL,
-fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
+''DashECharts(id=NULL, add_legend=NULL, bmap_token=NULL,
+brushSelected_data=NULL, brush_data=NULL, click_data=NULL,
+event=NULL, fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
 fun_prepares=NULL, fun_values=NULL, funs=NULL,
 mapbox_token=NULL, maps=NULL, n_clicks=NULL,
 n_clicks_timestamp=NULL, opt_merge=NULL, option=NULL,
@@ -22,6 +22,8 @@ selected_data=NULL, style=NULL, zoom_data=NULL)
 
 \arguments{
 \item{id}{Character. The ID used to identify this component in Dash callbacks.}
+
+\item{add_legend}{Named list. }
 
 \item{bmap_token}{Character. }
 

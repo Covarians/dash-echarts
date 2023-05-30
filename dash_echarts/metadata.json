@@ -154,6 +154,17 @@
           "computed": false
         }
       },
+      "add_legend": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
       "maps": {
         "type": {
           "name": "object"
