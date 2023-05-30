@@ -229,7 +229,7 @@ function DashECharts(props)  {
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             var test = id
-            if (test === 12)
+            if (test === "echart_m")
             {
                 return;
             }
