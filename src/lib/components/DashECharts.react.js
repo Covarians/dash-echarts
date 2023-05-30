@@ -228,11 +228,6 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            var test = id
-            if (test === "echart_m")
-            {
-                return;
-            }
             chart.setOption(option, true, false)
             // if (option)
             // {
