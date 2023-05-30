@@ -156,12 +156,12 @@
       },
       "add_legend": {
         "type": {
-          "name": "object"
+          "name": "string"
         },
         "required": false,
         "description": "",
         "defaultValue": {
-          "value": "{}",
+          "value": "\"\"",
           "computed": false
         }
       },

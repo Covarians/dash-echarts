@@ -23,7 +23,7 @@ selected_data=NULL, style=NULL, zoom_data=NULL)
 \arguments{
 \item{id}{Character. The ID used to identify this component in Dash callbacks.}
 
-\item{add_legend}{Named list. }
+\item{add_legend}{Character. }
 
 \item{bmap_token}{Character. }
 

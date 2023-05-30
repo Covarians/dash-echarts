@@ -9,7 +9,7 @@ A DashECharts component.
 
 Keyword arguments:
 - `id` (String; optional): The ID used to identify this component in Dash callbacks.
-- `add_legend` (Dict; optional)
+- `add_legend` (String; optional)
 - `bmap_token` (String; optional)
 - `brushSelected_data` (Dict; optional)
 - `brush_data` (Dict; optional)

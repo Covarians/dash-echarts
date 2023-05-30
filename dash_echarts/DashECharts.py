@@ -12,7 +12,7 @@ Keyword arguments:
 - id (string; optional):
     The ID used to identify this component in Dash callbacks.
 
-- add_legend (dict; optional)
+- add_legend (string; default "")
 
 - bmap_token (string; optional)
 
