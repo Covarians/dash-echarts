@@ -228,8 +228,12 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            chart.setOption(option, true, false)
             var test = id
+            if (test === 12)
+            {
+                return;
+            }
+            chart.setOption(option, true, false)
             // if (option)
             // {
             //     chart.setChart({ part_of_opt: option.dataZoom });
