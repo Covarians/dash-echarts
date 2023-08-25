@@ -154,7 +154,7 @@
           "computed": false
         }
       },
-      "get_clicked_category": {
+      "enable_get_clicked_bar_data_event": {
         "type": {
           "name": "bool"
         },
@@ -165,14 +165,14 @@
           "computed": false
         }
       },
-      "clicked_category": {
+      "clicked_bar_data": {
         "type": {
-          "name": "string"
+          "name": "object"
         },
         "required": false,
         "description": "",
         "defaultValue": {
-          "value": "\"\"",
+          "value": "{}",
           "computed": false
         }
       },

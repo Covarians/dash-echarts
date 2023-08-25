@@ -26,7 +26,7 @@ function DashECharts(props) {
         brush_data,
         brushSelected_data,
         event,
-        option, opt_merge, part_of_opt, get_clicked_category, clicked_category,
+        option, opt_merge, part_of_opt, enable_get_clicked_bar_data_event, clicked_bar_data,
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -144,25 +144,44 @@ function DashECharts(props) {
 
         funs.chart = myChart;
 
-        // If get_clicked_category is enabled, use the getZr function to get the clicked category instead of echarts' .on("click").
-        if (get_clicked_category) {
-            myChart.getZr().on('click', params => {
+        // If enable_get_clicked_bar_data_event is true, use the getZr function to get the clicked category instead of echarts' .on("click").
+        if (enable_get_clicked_bar_data_event) {
+            myChart.getZr().on("click", params => {
                 // Get cursor position.
                 var pointInPixel = [params.offsetX, params.offsetY];
                 // Get coordinates in grid.
-                var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
+                var pointInGrid = myChart.convertFromPixel("grid", pointInPixel);
                 // Get xAxes.
-                var xAxes = myChart.getModel().get('xAxis');
+                var xAxes = myChart.getModel().get("xAxis");
+
                 if (xAxes && xAxes.length > 0) {
                     // Get array of data of selected xAxis (index 0).
                     var xAxisValues = xAxes[0].data;
 
-                    // Check if if value is greater than highest index (meaning user clicked out of the graph area).
-                    if (xAxisValues.length > pointInGrid[0]) {
-                        // console.log(category);
-                        setProps({
-                            clicked_category: xAxisValues[pointInGrid[0]]
-                        });
+                    // Check that user clicked in the bar graph's area (can't check if it's over).
+                    if (pointInGrid[0] >= 0 && pointInGrid[1] >= 0 && xAxisValues.length > pointInGrid[0]) {
+                        // Get the corresponding category id.
+                        var categoryId = xAxisValues[pointInGrid[0]];
+
+                        // Get the index of the series at those coordinates, as it's a bar chart, there will be only one matching.
+                        var seriesIndex = myChart.convertFromPixel("seriesIndex", pointInPixel);
+
+                        // Check that a seriesIndex has been found.
+                        if (seriesIndex) {
+                            // Extract the values of the datapoint from the opt by matching the category id to the first element of the data array of the correct series.
+                            var barData = myChart.getModel("series")[seriesIndex].data.find((data) => data && data.value && data.value[0] === categoryId);
+                            
+                            // Extract id and name of the bar.
+                            var barDataObj = {
+                                id: barData[0],
+                                name: barData[4]
+                            }
+
+                            // Set the clicked_bar_data property. [categoryId, avg, loc, start_ts, name]
+                            setProps({
+                                clicked_bar_data: barDataObj
+                            })
+                        }
                     }
                 }
             });
@@ -342,8 +361,8 @@ DashECharts.defaultProps = {
     option: {},
     opt_merge: {},
     part_of_opt: {},
-    get_clicked_category: false,
-    clicked_category: "",
+    enable_get_clicked_bar_data_event: false,
+    clicked_bar_data: {},
     maps: {},
     fun_keys: [],
     fun_values: [],
@@ -370,8 +389,8 @@ DashECharts.propTypes = {
     option: PropTypes.object,
     opt_merge: PropTypes.object,
     part_of_opt: PropTypes.object,
-    get_clicked_category: PropTypes.bool,
-    clicked_category: PropTypes.string,
+    enable_get_clicked_bar_data_event: PropTypes.bool,
+    clicked_bar_data: PropTypes.object,
     maps: PropTypes.object,
     funs: PropTypes.object,
     fun_keys: PropTypes.array,

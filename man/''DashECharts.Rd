@@ -11,14 +11,14 @@
 
 \usage{
 ''DashECharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
-brush_data=NULL, click_data=NULL, clicked_category=NULL,
-event=NULL, fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
+brush_data=NULL, click_data=NULL, clicked_bar_data=NULL,
+enable_get_clicked_bar_data_event=NULL, event=NULL,
+fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
 fun_prepares=NULL, fun_values=NULL, funs=NULL,
-get_clicked_category=NULL, mapbox_token=NULL, maps=NULL,
-n_clicks=NULL, n_clicks_timestamp=NULL, opt_merge=NULL,
-option=NULL, part_of_opt=NULL, reset_id=NULL,
-resize_id=NULL, selected_data=NULL, style=NULL,
-zoom_data=NULL)
+mapbox_token=NULL, maps=NULL, n_clicks=NULL,
+n_clicks_timestamp=NULL, opt_merge=NULL, option=NULL,
+part_of_opt=NULL, reset_id=NULL, resize_id=NULL,
+selected_data=NULL, style=NULL, zoom_data=NULL)
 }
 
 \arguments{
@@ -32,7 +32,9 @@ zoom_data=NULL)
 
 \item{click_data}{Named list. }
 
-\item{clicked_category}{Character. }
+\item{clicked_bar_data}{Named list. }
+
+\item{enable_get_clicked_bar_data_event}{Logical. }
 
 \item{event}{Named list. }
 
@@ -47,8 +49,6 @@ zoom_data=NULL)
 \item{fun_values}{Unnamed list. }
 
 \item{funs}{Named list. }
-
-\item{get_clicked_category}{Logical. }
 
 \item{mapbox_token}{Character. }
 
