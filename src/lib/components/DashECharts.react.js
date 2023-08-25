@@ -143,25 +143,45 @@ function DashECharts(props) {
         setChart(myChart)
 
         funs.chart = myChart;
-        myChart.on("click", e => {
-            const ts = Date.now()
-            const clickCount = n_clicks + 1
-            const data = ramda.pick([
-                'componentType',
-                'seriesType', 'seriesIndex', 'seriesName',
-                'name',
-                'dataIndex', 'data', 'dataType',
-                'value', 'color', 'yAxisIndex',
-            ], e)
-            data.n_clicks = clickCount;
-            data.core_timestamp = ts;
-            setProps({
-                event: e.event.event,
-                n_clicks: clickCount,
-                n_clicks_timestamp: ts,
-                click_data: data
+
+        if (enable_zr_click_event) {
+            chart.getZr().on('click', params => {
+                var pointInPixel = [params.offsetX, params.offsetY];
+                var pointInGrid = chart.convertFromPixel('grid', pointInPixel);
+                var xAxis = chart.getModel().get('xAxis');
+                if (xAxis && xAxis.length > 0) {
+                    var xAxisVal = xAxis[0];
+                    if (xAxis.data.length > pointInGrid[0]) {
+                        // console.log(category);
+                        setProps(
+                            get_category = xAxisVal[pointInGrid[0]]
+                        )
+                    }
+                }
             });
-        });
+        }
+        else {
+            myChart.on("click", e => {
+                const ts = Date.now()
+                const clickCount = n_clicks + 1
+                const data = ramda.pick([
+                    'componentType',
+                    'seriesType', 'seriesIndex', 'seriesName',
+                    'name',
+                    'dataIndex', 'data', 'dataType',
+                    'value', 'color', 'yAxisIndex',
+                ], e)
+                data.n_clicks = clickCount;
+                data.core_timestamp = ts;
+                setProps({
+                    event: e.event.event,
+                    n_clicks: clickCount,
+                    n_clicks_timestamp: ts,
+                    click_data: data
+                });
+            });
+        }
+        
         myChart.on("datazoom", e => {
             const ts = Date.now()
             const d = e.batch ? e.batch[0] : e;
@@ -226,27 +246,27 @@ function DashECharts(props) {
     }, []);
     // useEffect on empty array : will only run after the initial render (twice in debug).
 
-    useEffect(() => {
-        if (!ramda.isEmpty(chart)) {
-            // Make area around bars clickable, see https://stackoverflow.com/questions/64643683/how-to-make-space-around-bar-clickable-in-echarts-bar-chart.
-            if (enable_zr_click_event) {
-                chart.getZr().on('click', params => {
-                    var pointInPixel = [params.offsetX, params.offsetY];
-                    var pointInGrid = chart.convertFromPixel('grid', pointInPixel);
-                    var xAxis = chart.getModel().get('xAxis');
-                    if (xAxis && xAxis.length > 0) {
-                        var xAxisVal = xAxis[0];
-                        if (xAxis.data.length > pointInGrid[0]) {
-                            // console.log(category);
-                            setProps(
-                                get_category = xAxisVal[pointInGrid[0]]
-                            )
-                        }
-                    }
-                });
-            }
-        }
-    }, [enable_zr_click_event])
+    // useEffect(() => {
+    //     if (!ramda.isEmpty(chart)) {
+    //         // Make area around bars clickable, see https://stackoverflow.com/questions/64643683/how-to-make-space-around-bar-clickable-in-echarts-bar-chart.
+    //         if (enable_zr_click_event) {
+    //             chart.getZr().on('click', params => {
+    //                 var pointInPixel = [params.offsetX, params.offsetY];
+    //                 var pointInGrid = chart.convertFromPixel('grid', pointInPixel);
+    //                 var xAxis = chart.getModel().get('xAxis');
+    //                 if (xAxis && xAxis.length > 0) {
+    //                     var xAxisVal = xAxis[0];
+    //                     if (xAxis.data.length > pointInGrid[0]) {
+    //                         // console.log(category);
+    //                         setProps(
+    //                             get_category = xAxisVal[pointInGrid[0]]
+    //                         )
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     }
+    // }, [enable_zr_click_event])
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
