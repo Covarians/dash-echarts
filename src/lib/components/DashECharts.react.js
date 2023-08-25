@@ -163,14 +163,20 @@ function DashECharts(props) {
                         // Get the corresponding category id.
                         var categoryId = xAxisValues[pointInGrid[0]];
 
-                        // Get the index of the series at those coordinates, as it's a bar chart, there will be only one matching.
-                        var seriesIndex = myChart.convertFromPixel("seriesIndex", pointInPixel);
+                        // Only one series can match on a category so match categoryId across ALL series' data arrays.
+                        var barData;
 
-                        // Check that a seriesIndex has been found.
-                        if (seriesIndex) {
-                            // Extract the values of the datapoint from the opt by matching the category id to the first element of the data array of the correct series.
-                            var barData = myChart.getModel("series")[seriesIndex].data.find((data) => data && data.value && data.value[0] === categoryId);
-                            
+                        for (const series in myChart.getModel("series")) {
+                            for (const data_elt of series.data) {
+                                if (data_elt[0] === categoryId) {
+                                    barData = data_elt;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // If categoryId has been match.
+                        if (barData) {
                             // Extract id and name of the bar.
                             var barDataObj = {
                                 id: barData[0],
