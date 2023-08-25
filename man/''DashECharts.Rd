@@ -11,9 +11,10 @@
 
 \usage{
 ''DashECharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
-brush_data=NULL, click_data=NULL, event=NULL,
-fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
-fun_prepares=NULL, fun_values=NULL, funs=NULL,
+brush_data=NULL, click_data=NULL,
+enable_zr_click_event=NULL, event=NULL, fun_effects=NULL,
+fun_keys=NULL, fun_paths=NULL, fun_prepares=NULL,
+fun_values=NULL, funs=NULL, get_category=NULL,
 mapbox_token=NULL, maps=NULL, n_clicks=NULL,
 n_clicks_timestamp=NULL, opt_merge=NULL, option=NULL,
 part_of_opt=NULL, reset_id=NULL, resize_id=NULL,
@@ -31,6 +32,8 @@ selected_data=NULL, style=NULL, zoom_data=NULL)
 
 \item{click_data}{Named list. }
 
+\item{enable_zr_click_event}{Logical. }
+
 \item{event}{Named list. }
 
 \item{fun_effects}{Unnamed list. }
@@ -44,6 +47,8 @@ selected_data=NULL, style=NULL, zoom_data=NULL)
 \item{fun_values}{Unnamed list. }
 
 \item{funs}{Named list. }
+
+\item{get_category}{Character. }
 
 \item{mapbox_token}{Character. }
 

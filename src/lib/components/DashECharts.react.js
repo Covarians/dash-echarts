@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as gl from 'echarts-gl';
 import * as echarts from 'echarts';
@@ -11,14 +11,14 @@ import mapboxgl from 'mapbox-gl';
 
 const loadFuns = (obj) => {
     Object.keys(obj).forEach(key => {
-        if (typeof obj[key] === 'string' && !['chart','echarts', 'bmap', 'ramda', 'gl', 'ecStat', 'mapboxgl'].includes(key)) {
-            const fun = new Function("return "+obj[key].trim()+".bind(this)").bind(obj)
+        if (typeof obj[key] === 'string' && !['chart', 'echarts', 'bmap', 'ramda', 'gl', 'ecStat', 'mapboxgl'].includes(key)) {
+            const fun = new Function("return " + obj[key].trim() + ".bind(this)").bind(obj)
             obj[key] = fun();
         }
     })
 }
 
-function DashECharts(props)  {
+function DashECharts(props) {
     const {
         // eslint-disable-next-line no-unused-vars
         n_clicks, n_clicks_timestamp, click_data, zoom_data,
@@ -26,7 +26,7 @@ function DashECharts(props)  {
         brush_data,
         brushSelected_data,
         event,
-        option, opt_merge, part_of_opt,
+        option, opt_merge, part_of_opt, enable_zr_click_event, get_category,
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -69,7 +69,7 @@ function DashECharts(props)  {
                     else if (typeof v === 'object') {
                         funConvertValues(v)
                     }
-                } 
+                }
             })
         }
     })
@@ -118,10 +118,10 @@ function DashECharts(props)  {
     funs.gl = gl;
     funs.ecStat = ecStat;
     loadFuns(funs)
-    if (!ramda.isEmpty(fun_prepares)) {funPreparesRun(option)}
-    if (!ramda.isEmpty(fun_keys)) {funConvertKeys(option)}
-    if (!ramda.isEmpty(fun_values)) {funConvertValues(option)}
-    if (!ramda.isEmpty(fun_paths)) {funConvertPaths(option)}
+    if (!ramda.isEmpty(fun_prepares)) { funPreparesRun(option) }
+    if (!ramda.isEmpty(fun_keys)) { funConvertKeys(option) }
+    if (!ramda.isEmpty(fun_values)) { funConvertValues(option) }
+    if (!ramda.isEmpty(fun_paths)) { funConvertPaths(option) }
     if (!ramda.isEmpty(fun_effects)) {
         fun_effects.forEach(e => {
             if (typeof e === 'string') {
@@ -152,7 +152,7 @@ function DashECharts(props)  {
                 'name',
                 'dataIndex', 'data', 'dataType',
                 'value', 'color', 'yAxisIndex',
-                ], e)
+            ], e)
             data.n_clicks = clickCount;
             data.core_timestamp = ts;
             setProps({
@@ -207,14 +207,6 @@ function DashECharts(props)  {
             });
         })
 
-        // Test to make area around bars selectable, see https://stackoverflow.com/questions/64643683/how-to-make-space-around-bar-clickable-in-echarts-bar-chart.
-        myChart.getZr().on('click', params => {
-            var pointInPixel = [params.offsetX, params.offsetY];
-            var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
-            var category = myChart.getModel().get('xAxis')[0].data[pointInGrid[0]]
-            console.log(category);
-          });
-
         // myChart.getZr().on("brushEnd", params => {
         //     var pointInPixel = [params.offsetX, params.offsetY];
         //     var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
@@ -233,6 +225,26 @@ function DashECharts(props)  {
 
     }, []);
     // useEffect on empty array : will only run after the initial render (twice in debug).
+
+    useEffect(() => {
+        // Make area around bars clickable, see https://stackoverflow.com/questions/64643683/how-to-make-space-around-bar-clickable-in-echarts-bar-chart.
+        if (enable_zr_click_event) {
+            myChart.getZr().on('click', params => {
+                var pointInPixel = [params.offsetX, params.offsetY];
+                var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
+                var xAxis = myChart.getModel().get('xAxis');
+                if (xAxis && xAxis.length > 0) {
+                    var xAxisVal = xAxis[0];
+                    if (xAxis.data.length > pointInGrid[0]) {
+                        // console.log(category);
+                        setProps(
+                            get_category = xAxisVal[pointInGrid[0]]
+                        )
+                    }
+                }
+            });
+        }
+    }, [enable_zr_click_event])
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
@@ -254,7 +266,7 @@ function DashECharts(props)  {
             }
             window.addEventListener('resize', resizeFunc);
             return () => {
-              window.removeEventListener('resize', resizeFunc)
+                window.removeEventListener('resize', resizeFunc)
             }
         }
         return () => {
@@ -280,14 +292,14 @@ function DashECharts(props)  {
             // return () => {
             //   window.removeEventListener('resize', resizeFunc)
             // }
-        // }
-        // return () => {
+            // }
+            // return () => {
         }
     }, [opt_merge])
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            if (resize_id>0) {
+            if (resize_id > 0) {
                 setTimeout(function () {
                     chart.resize()
                 }, 500)
@@ -297,7 +309,7 @@ function DashECharts(props)  {
 
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
-            if (reset_id>0) {
+            if (reset_id > 0) {
                 chart.clear()
                 chart.setOption(option, true, false)
             }
@@ -305,7 +317,7 @@ function DashECharts(props)  {
     }, [reset_id])
 
     return (
-        <div id={id} style={style} ref={chartRef}/>
+        <div id={id} style={style} ref={chartRef} />
     );
 }
 
@@ -323,6 +335,8 @@ DashECharts.defaultProps = {
     option: {},
     opt_merge: {},
     part_of_opt: {},
+    enable_zr_click_event: false,
+    get_category: "",
     maps: {},
     fun_keys: [],
     fun_values: [],
@@ -349,6 +363,8 @@ DashECharts.propTypes = {
     option: PropTypes.object,
     opt_merge: PropTypes.object,
     part_of_opt: PropTypes.object,
+    enable_zr_click_event: PropTypes.bool,
+    get_category: PropTypes.string,
     maps: PropTypes.object,
     funs: PropTypes.object,
     fun_keys: PropTypes.array,
