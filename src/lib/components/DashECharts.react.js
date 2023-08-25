@@ -169,7 +169,7 @@ function DashECharts(props) {
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
                         var barData;
 
-                        for (const serie in series) {
+                        for (const serie of series) {
                             for (const data_elt of serie.data) {
                                 if (data_elt[0] === categoryId) {
                                     barData = data_elt;
