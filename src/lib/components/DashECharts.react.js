@@ -145,10 +145,10 @@ function DashECharts(props) {
         funs.chart = myChart;
 
         if (enable_zr_click_event) {
-            chart.getZr().on('click', params => {
+            myChart.getZr().on('click', params => {
                 var pointInPixel = [params.offsetX, params.offsetY];
-                var pointInGrid = chart.convertFromPixel('grid', pointInPixel);
-                var xAxis = chart.getModel().get('xAxis');
+                var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
+                var xAxis = myChart.getModel().get('xAxis');
                 if (xAxis && xAxis.length > 0) {
                     var xAxisVal = xAxis[0];
                     if (xAxis.data.length > pointInGrid[0]) {
