@@ -26,7 +26,7 @@ function DashECharts(props) {
         brush_data,
         brushSelected_data,
         event,
-        option, opt_merge, part_of_opt, enable_zr_click_event, get_category,
+        option, opt_merge, part_of_opt, get_clicked_category, clicked_category,
         style, id, setProps,
         maps,
         funs, fun_keys, fun_values, fun_paths, fun_effects, fun_prepares,
@@ -144,17 +144,24 @@ function DashECharts(props) {
 
         funs.chart = myChart;
 
-        if (enable_zr_click_event) {
+        // If get_clicked_category is enabled, use the getZr function to get the clicked category instead of echarts' .on("click").
+        if (get_clicked_category) {
             myChart.getZr().on('click', params => {
+                // Get cursor position.
                 var pointInPixel = [params.offsetX, params.offsetY];
+                // Get coordinates in grid.
                 var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
-                var xAxis = myChart.getModel().get('xAxis');
-                if (xAxis && xAxis.length > 0) {
-                    var xAxisVal = xAxis[0];
-                    if (xAxis.data.length > pointInGrid[0]) {
+                // Get xAxes.
+                var xAxes = myChart.getModel().get('xAxis');
+                if (xAxes && xAxes.length > 0) {
+                    // Get array of data of selected xAxis (index 0).
+                    var xAxisValues = xAxes[0].data;
+                    
+                    // Check if if value is greater than highest index (meaning user clicked out of the graph area).
+                    if (xAxisValues.length > pointInGrid[0]) {
                         // console.log(category);
                         setProps(
-                            get_category = xAxisVal[pointInGrid[0]]
+                            clicked_category = xAxisValues[pointInGrid[0]]
                         )
                     }
                 }
@@ -246,28 +253,6 @@ function DashECharts(props) {
     }, []);
     // useEffect on empty array : will only run after the initial render (twice in debug).
 
-    // useEffect(() => {
-    //     if (!ramda.isEmpty(chart)) {
-    //         // Make area around bars clickable, see https://stackoverflow.com/questions/64643683/how-to-make-space-around-bar-clickable-in-echarts-bar-chart.
-    //         if (enable_zr_click_event) {
-    //             chart.getZr().on('click', params => {
-    //                 var pointInPixel = [params.offsetX, params.offsetY];
-    //                 var pointInGrid = chart.convertFromPixel('grid', pointInPixel);
-    //                 var xAxis = chart.getModel().get('xAxis');
-    //                 if (xAxis && xAxis.length > 0) {
-    //                     var xAxisVal = xAxis[0];
-    //                     if (xAxis.data.length > pointInGrid[0]) {
-    //                         // console.log(category);
-    //                         setProps(
-    //                             get_category = xAxisVal[pointInGrid[0]]
-    //                         )
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     }
-    // }, [enable_zr_click_event])
-
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             chart.setOption(option, true, false)
@@ -357,8 +342,8 @@ DashECharts.defaultProps = {
     option: {},
     opt_merge: {},
     part_of_opt: {},
-    enable_zr_click_event: false,
-    get_category: "",
+    get_clicked_category: false,
+    clicked_category: "",
     maps: {},
     fun_keys: [],
     fun_values: [],
@@ -385,8 +370,8 @@ DashECharts.propTypes = {
     option: PropTypes.object,
     opt_merge: PropTypes.object,
     part_of_opt: PropTypes.object,
-    enable_zr_click_event: PropTypes.bool,
-    get_category: PropTypes.string,
+    get_clicked_category: PropTypes.bool,
+    clicked_category: PropTypes.string,
     maps: PropTypes.object,
     funs: PropTypes.object,
     fun_keys: PropTypes.array,

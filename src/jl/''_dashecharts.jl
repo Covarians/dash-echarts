@@ -13,7 +13,7 @@ Keyword arguments:
 - `brushSelected_data` (Dict; optional)
 - `brush_data` (Dict; optional)
 - `click_data` (Dict; optional)
-- `enable_zr_click_event` (Bool; optional)
+- `clicked_category` (String; optional)
 - `event` (Dict; optional)
 - `fun_effects` (Array; optional)
 - `fun_keys` (Array; optional)
@@ -21,7 +21,7 @@ Keyword arguments:
 - `fun_prepares` (Array; optional)
 - `fun_values` (Array; optional)
 - `funs` (Dict; optional)
-- `get_category` (String; optional)
+- `get_clicked_category` (Bool; optional)
 - `mapbox_token` (String; optional)
 - `maps` (Dict; optional)
 - `n_clicks` (Real; optional)
@@ -36,7 +36,7 @@ Keyword arguments:
 - `zoom_data` (Dict; optional)
 """
 function ''_dashecharts(; kwargs...)
-        available_props = Symbol[:id, :bmap_token, :brushSelected_data, :brush_data, :click_data, :enable_zr_click_event, :event, :fun_effects, :fun_keys, :fun_paths, :fun_prepares, :fun_values, :funs, :get_category, :mapbox_token, :maps, :n_clicks, :n_clicks_timestamp, :opt_merge, :option, :part_of_opt, :reset_id, :resize_id, :selected_data, :style, :zoom_data]
+        available_props = Symbol[:id, :bmap_token, :brushSelected_data, :brush_data, :click_data, :clicked_category, :event, :fun_effects, :fun_keys, :fun_paths, :fun_prepares, :fun_values, :funs, :get_clicked_category, :mapbox_token, :maps, :n_clicks, :n_clicks_timestamp, :opt_merge, :option, :part_of_opt, :reset_id, :resize_id, :selected_data, :style, :zoom_data]
         wild_props = Symbol[]
         return Component("''_dashecharts", "DashECharts", "dash_echarts", available_props, wild_props; kwargs...)
 end

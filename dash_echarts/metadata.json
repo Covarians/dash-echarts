@@ -154,7 +154,7 @@
           "computed": false
         }
       },
-      "enable_zr_click_event": {
+      "get_clicked_category": {
         "type": {
           "name": "bool"
         },
@@ -165,7 +165,7 @@
           "computed": false
         }
       },
-      "get_category": {
+      "clicked_category": {
         "type": {
           "name": "string"
         },
