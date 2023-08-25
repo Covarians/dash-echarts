@@ -166,6 +166,8 @@ function DashECharts(props) {
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
                         var barData;
 
+                        var series = myChart.getModel().get("xAxis");
+
                         for (const series in myChart.getModel().get("series")) {
                             for (const data_elt of series.data) {
                                 if (data_elt[0] === categoryId) {
