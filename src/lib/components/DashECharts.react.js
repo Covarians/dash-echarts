@@ -156,13 +156,13 @@ function DashECharts(props) {
                 if (xAxes && xAxes.length > 0) {
                     // Get array of data of selected xAxis (index 0).
                     var xAxisValues = xAxes[0].data;
-                    
+
                     // Check if if value is greater than highest index (meaning user clicked out of the graph area).
                     if (xAxisValues.length > pointInGrid[0]) {
                         // console.log(category);
-                        setProps(
-                            clicked_category = xAxisValues[pointInGrid[0]]
-                        )
+                        setProps({
+                            clicked_category: xAxisValues[pointInGrid[0]]
+                        });
                     }
                 }
             });
