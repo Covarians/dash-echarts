@@ -152,7 +152,10 @@ function DashECharts(props) {
                 // Get coordinates in grid.
                 var pointInGrid = myChart.convertFromPixel("grid", pointInPixel);
                 // Get xAxes.
-                var xAxes = myChart.getModel().get("xAxis");
+                var model = myChart.getModel();
+
+                var xAxes = model.get("xAxis");
+                var series = model.get("series");
 
                 if (xAxes && xAxes.length > 0) {
                     // Get array of data of selected xAxis (index 0).
@@ -166,10 +169,8 @@ function DashECharts(props) {
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
                         var barData;
 
-                        var series = myChart.getModel().get("xAxis");
-
-                        for (const series in myChart.getModel().get("series")) {
-                            for (const data_elt of series.data) {
+                        for (const serie in series) {
+                            for (const data_elt of serie.data) {
                                 if (data_elt[0] === categoryId) {
                                     barData = data_elt;
                                     break;
