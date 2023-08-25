@@ -172,7 +172,7 @@ function DashECharts(props) {
                         for (const serie of series) {
                             for (const data_elt of serie.data) {
                                 if (data_elt.value[0] === categoryId) {
-                                    barData = data_elt;
+                                    barData = data_elt.value;
                                     break;
                                 }
                             }
