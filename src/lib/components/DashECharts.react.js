@@ -207,6 +207,14 @@ function DashECharts(props)  {
             });
         })
 
+        // Test to make area around bars selectable, see https://stackoverflow.com/questions/64643683/how-to-make-space-around-bar-clickable-in-echarts-bar-chart.
+        myChart.getZr().on('click', params => {
+            var pointInPixel = [params.offsetX, params.offsetY];
+            var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
+            var category = myChart.getModel().get('xAxis')[0].data[pointInGrid[0]]
+            console.log(category);
+          });
+
         // myChart.getZr().on("brushEnd", params => {
         //     var pointInPixel = [params.offsetX, params.offsetY];
         //     var pointInGrid = myChart.convertFromPixel('grid', pointInPixel);
