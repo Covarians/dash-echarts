@@ -175,7 +175,7 @@ function DashECharts(props) {
                             const arrow_series = series.find((element) => element.type === "scatter");
                             if (arrow_series !== undefined) {
                                 // Index of clicked coordinates in xAxis data.
-                                const categoryIndex = xAxes[0].data.findIndex((xAxisData) = xAxisData[0] === categoryId);
+                                const categoryIndex = xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === categoryId);
 
                                 // Indexes of category ids to match.
                                 const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === data[0]));
