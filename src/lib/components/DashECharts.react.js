@@ -169,11 +169,18 @@ function DashECharts(props) {
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
                         var barData;
 
+                        // Iterate through all series.
                         for (const serie of series) {
-                            for (const data_elt of serie.data) {
-                                if (data_elt.value[0] === categoryId) {
-                                    barData = data_elt.value;
-                                    break;
+                            // Filter by series type.
+                            if (serie.type === "bar") {
+                                // Iterate through a series' data.
+                                for (const data_elt of serie.data) {
+                                    // If the first element of data of the series matches with categoryId, it's the on we were searching for. 
+                                    // Category name is at inde 4.
+                                    if (data_elt.value[0] === categoryId) {
+                                        barData = data_elt.value;
+                                        break;
+                                    }
                                 }
                             }
                         }
