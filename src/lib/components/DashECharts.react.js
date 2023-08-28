@@ -151,9 +151,9 @@ function DashECharts(props) {
                 const pointInPixel = [params.offsetX, params.offsetY];
                 // Get coordinates in grid.
                 const pointInGrid = myChart.convertFromPixel("grid", pointInPixel);
-                // Get xAxes.
+                
+                // Get xAxes and series.
                 const model = myChart.getModel();
-
                 const xAxes = model.get("xAxis");
                 const series = model.get("series");
 
@@ -161,8 +161,18 @@ function DashECharts(props) {
                     // Get array of data of selected xAxis (index 0).
                     const xAxisValues = xAxes[0].data;
 
-                    // Check that user clicked in the bar graph's area (can't check if it's over).
-                    if (pointInGrid[0] >= 0 && pointInGrid[1] >= 0 && xAxisValues.length > pointInGrid[0]) {
+                    // Get dataZoom range (in %).
+                    const dataZoom = {
+                        start: model.get("dataZoom")[0].start,
+                        end: model.get("dataZoom")[0].end
+                    }
+
+                    // Check that user clicked in the bar graph's area (can't check if it's over the bar graph).
+                    // Uses dataZoom to know the boudaries.
+                    if (pointInGrid[0] >= xAxisValues.length * dataZoom.start/100
+                        && pointInGrid[0] <= xAxisValues.length * dataZoom.end/100
+                        && pointInGrid[1] >= 0) {
+                        
                         // Get the corresponding category id.
                         const categoryId = xAxisValues[pointInGrid[0]];
 
