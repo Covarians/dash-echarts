@@ -167,10 +167,10 @@ function DashECharts(props) {
                         const categoryId = xAxisValues[pointInGrid[0]];
 
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
-                        var barDataObj = {};
+                        var barDataObj;
 
                         // If user clicked an arrow.
-                        if (params?.target?.shape?.symbolType === "arrow") {
+                        if (params && params.target && params.target.shape && params.target.shape.symbolType === "arrow") {
                             // Find the series holding the scatter elements.
                             const arrow_series = series.find((element) => element.type === "scatter");
                             if (arrow_series !== undefined) {
@@ -178,19 +178,19 @@ function DashECharts(props) {
                                 const categoryIndex = xAxes[0].data.findIndex((xAxisData) = xAxisData[0] === categoryId);
 
                                 // Indexes of category ids to match.
-                                const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === data[0]))
+                                const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === data[0]));
 
                                 // Find the category id to match closest to the clicked coordinates' index.
                                 const closestIndexOfScatter = indexesOfScatter.reduce(function (prev, curr) {
                                     return (Math.abs(curr - categoryIndex) < Math.abs(prev - categoryIndex) ? curr : prev);
                                 });
 
-                                const scatterValue = series[0].data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter])
+                                const scatterValue = arrow_series.data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter]);
 
                                 if (scatterValue !== undefined) {
                                     barDataObj = {
-                                        id: data_elt[0],
-                                        name: data_elt.value[2]
+                                        id: scatterValue[0],
+                                        name: scatterValue[2]
                                     }
                                 }
                             }
@@ -208,7 +208,7 @@ function DashECharts(props) {
                                         // Category name is at index 4.
                                         if (data_elt.value[0] === categoryId) {
                                             barDataObj = {
-                                                id: data_elt[0],
+                                                id: data_elt.value[0],
                                                 name: data_elt.value[4]
                                             }
                                             break;
