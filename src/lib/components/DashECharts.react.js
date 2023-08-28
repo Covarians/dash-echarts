@@ -310,8 +310,8 @@ function DashECharts(props) {
         })
 
         const resizeFunc = () => {
-            if (!ramda.isEmpty(chart)) {
-                chart.resize();
+            if (!ramda.isEmpty(myChart)) {
+                myChart.resize();
                 const ts = Date.now()
                 setProps({
                     n_resizes: ts,
@@ -326,10 +326,10 @@ function DashECharts(props) {
             // Effect cleanup function when component is unmounted.
             // Unbind events.
             window.removeEventListener('resize', resizeFunc);
-            getZr.off("click");
-            myChart.off("click");
-            myChart.clear();
-            myChart.dispose();
+            // getZr.off("click");
+            // myChart.off("click");
+            // myChart.clear();
+            // myChart.dispose();
         }
 
         // myChart.getZr().on("brushEnd", params => {
