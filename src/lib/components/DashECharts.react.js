@@ -185,7 +185,7 @@ function DashECharts(props) {
                                     return (Math.abs(curr - categoryIndex) < Math.abs(prev - categoryIndex) ? curr : prev);
                                 });
 
-                                const scatterValue = arrow_series.data.find((x) => x[0] === xAxes.data[closestIndexOfScatter]);
+                                const scatterValue = arrow_series.data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter]);
 
                                 if (scatterValue !== undefined) {
                                     barDataObj = {
