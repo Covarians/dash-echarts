@@ -175,17 +175,17 @@ function DashECharts(props) {
                             const arrow_series = series.find((element) => element.type === "scatter");
                             if (arrow_series !== undefined) {
                                 // Index of clicked coordinates in xAxis data.
-                                const categoryIndex = xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === categoryId);
+                                const categoryIndex = xAxes[0].data.findIndex((xAxisData) => xAxisData === categoryId);
 
                                 // Indexes of category ids to match.
-                                const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === data[0]));
+                                const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData === data[0]));
 
                                 // Find the category id to match closest to the clicked coordinates' index.
                                 const closestIndexOfScatter = indexesOfScatter.reduce(function (prev, curr) {
                                     return (Math.abs(curr - categoryIndex) < Math.abs(prev - categoryIndex) ? curr : prev);
                                 });
 
-                                const scatterValue = arrow_series.data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter]);
+                                const scatterValue = arrow_series.data.find((x) => x[0] === xAxes.data[closestIndexOfScatter]);
 
                                 if (scatterValue !== undefined) {
                                     barDataObj = {
@@ -218,7 +218,7 @@ function DashECharts(props) {
                             }
                         }
 
-                        // If categoryId has been match.
+                        // If the correct bar has been matched.
                         if (barDataObj) {
                             // Set the clicked_bar_data property.
                             setProps({
