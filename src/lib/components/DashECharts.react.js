@@ -148,52 +148,79 @@ function DashECharts(props) {
         if (enable_get_clicked_bar_data_event) {
             myChart.getZr().on("click", params => {
                 // Get cursor position.
-                var pointInPixel = [params.offsetX, params.offsetY];
+                const pointInPixel = [params.offsetX, params.offsetY];
                 // Get coordinates in grid.
-                var pointInGrid = myChart.convertFromPixel("grid", pointInPixel);
+                const pointInGrid = myChart.convertFromPixel("grid", pointInPixel);
                 // Get xAxes.
-                var model = myChart.getModel();
+                const model = myChart.getModel();
 
-                var xAxes = model.get("xAxis");
-                var series = model.get("series");
+                const xAxes = model.get("xAxis");
+                const series = model.get("series");
 
                 if (xAxes && xAxes.length > 0) {
                     // Get array of data of selected xAxis (index 0).
-                    var xAxisValues = xAxes[0].data;
+                    const xAxisValues = xAxes[0].data;
 
                     // Check that user clicked in the bar graph's area (can't check if it's over).
                     if (pointInGrid[0] >= 0 && pointInGrid[1] >= 0 && xAxisValues.length > pointInGrid[0]) {
                         // Get the corresponding category id.
-                        var categoryId = xAxisValues[pointInGrid[0]];
+                        const categoryId = xAxisValues[pointInGrid[0]];
 
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
-                        var barData;
+                        var barDataObj = {};
 
-                        // Iterate through all series.
-                        for (const serie of series) {
-                            // Filter by series type.
-                            if (serie.type === "bar") {
-                                // Iterate through a series' data.
-                                for (const data_elt of serie.data) {
-                                    // If the first element of data of the series matches with categoryId, it's the on we were searching for. 
-                                    // Category name is at index 4.
-                                    if (data_elt.value[0] === categoryId) {
-                                        barData = data_elt.value;
-                                        break;
+                        // If user clicked an arrow.
+                        if (params?.target?.shape?.symbolType === "arrow") {
+                            // Find the series holding the scatter elements.
+                            const arrow_series = series.find((element) => element.type === "scatter");
+                            if (arrow_series !== undefined) {
+                                // Index of clicked coordinates in xAxis data.
+                                const categoryIndex = xAxes[0].data.findIndex((xAxisData) = xAxisData[0] === categoryId);
+
+                                // Indexes of category ids to match.
+                                const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData[0] === data[0]))
+
+                                // Find the category id to match closest to the clicked coordinates' index.
+                                const closestIndexOfScatter = indexesOfScatter.reduce(function (prev, curr) {
+                                    return (Math.abs(curr - categoryIndex) < Math.abs(prev - categoryIndex) ? curr : prev);
+                                });
+
+                                const scatterValue = series[0].data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter])
+
+                                if (scatterValue !== undefined) {
+                                    barDataObj = {
+                                        id: data_elt[0],
+                                        name: data_elt.value[2]
                                     }
                                 }
                             }
                         }
-                        
-                        // If categoryId has been match.
-                        if (barData) {
-                            // Extract id and name of the bar.
-                            var barDataObj = {
-                                id: barData[0],
-                                name: barData[4]
-                            }
 
-                            // Set the clicked_bar_data property. [categoryId, avg, loc, start_ts, name]
+                        // If clicked point is not an arrow or if barDataObj wasn't found successfully.
+                        if (barDataObj === undefined) {
+                            // Iterate through all series.
+                            for (const serie of series) {
+                                // Filter by series type.
+                                if (serie.type === "bar") {
+                                    // Iterate through a series' data.
+                                    for (const data_elt of serie.data) {
+                                        // If the first element of data of the series matches with categoryId, it's the on we were searching for. 
+                                        // Category name is at index 4.
+                                        if (data_elt.value[0] === categoryId) {
+                                            barDataObj = {
+                                                id: data_elt[0],
+                                                name: data_elt.value[4]
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // If categoryId has been match.
+                        if (barDataObj) {
+                            // Set the clicked_bar_data property.
                             setProps({
                                 clicked_bar_data: barDataObj
                             })
@@ -223,7 +250,7 @@ function DashECharts(props) {
                 });
             });
         }
-        
+
         myChart.on("datazoom", e => {
             const ts = Date.now()
             const d = e.batch ? e.batch[0] : e;
