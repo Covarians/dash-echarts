@@ -273,6 +273,7 @@ function DashECharts(props) {
                 zoom_data: data
             });
         });
+
         myChart.on("selectchanged", e => {
             const ts = Date.now()
             const data = ramda.pick([
@@ -285,6 +286,7 @@ function DashECharts(props) {
                 selected_data: data
             });
         })
+
         myChart.on("brushEnd", e => {
             const ts = Date.now()
             const data = ramda.pick([
@@ -295,6 +297,7 @@ function DashECharts(props) {
                 brush_data: data
             });
         })
+
         myChart.on("brushSelected", e => {
             const ts = Date.now()
             const data = ramda.pick([
@@ -305,6 +308,29 @@ function DashECharts(props) {
                 brushSelected_data: data
             });
         })
+
+        const resizeFunc = () => {
+            if (!ramda.isEmpty(chart)) {
+                chart.resize();
+                const ts = Date.now()
+                setProps({
+                    n_resizes: ts,
+                    n_clicks_timestamp: ts,
+                });
+            }
+        }
+
+        window.addEventListener('resize', resizeFunc);
+
+        return () => {
+            // Effect cleanup function when component is unmounted.
+            // Unbind events.
+            window.removeEventListener('resize', resizeFunc);
+            getZr.off("click");
+            myChart.off("click");
+            myChart.clear();
+            myChart.dispose();
+        }
 
         // myChart.getZr().on("brushEnd", params => {
         //     var pointInPixel = [params.offsetX, params.offsetY];
@@ -333,23 +359,23 @@ function DashECharts(props) {
             //     chart.setChart({ part_of_opt: option.dataZoom });
             //     //props.change_part_of_opt();
             // }
-            const resizeFunc = () => {
-                if (!ramda.isEmpty(chart)) {
-                    chart.resize();
-                    const ts = Date.now()
-                    setProps({
-                        n_resizes: ts,
-                        n_clicks_timestamp: ts,
-                    });
-                }
-            }
-            window.addEventListener('resize', resizeFunc);
-            return () => {
-                window.removeEventListener('resize', resizeFunc)
-            }
+            // const resizeFunc = () => {
+            //     if (!ramda.isEmpty(chart)) {
+            //         chart.resize();
+            //         const ts = Date.now()
+            //         setProps({
+            //             n_resizes: ts,
+            //             n_clicks_timestamp: ts,
+            //         });
+            //     }
+            // }
+            // window.addEventListener('resize', resizeFunc);
+            // return () => {
+            //     window.removeEventListener('resize', resizeFunc)
+            // }
         }
-        return () => {
-        }
+        // return () => {
+        // }
     }, [option])
 
     useEffect(() => {
