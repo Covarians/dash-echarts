@@ -169,10 +169,6 @@ function DashECharts(props) {
                         // Only one series can match on a category so match categoryId across ALL series' data arrays.
                         var barData;
 
-                        
-                        const model = this.model;
-                        console.log(model);
-
                         // Iterate through all series.
                         for (const serie of series) {
                             // Filter by series type.
