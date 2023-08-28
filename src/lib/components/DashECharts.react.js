@@ -167,47 +167,54 @@ function DashECharts(props) {
                         end: model.get("dataZoom")[0].end
                     }
 
-                    // Check that user clicked in the bar graph's area (can't check if it's over the bar graph).
-                    // Uses dataZoom to know the boudaries.
-                    if (pointInGrid[0] >= xAxisValues.length * dataZoom.start/100
-                        && pointInGrid[0] <= xAxisValues.length * dataZoom.end/100
-                        && pointInGrid[1] >= 0) {
-                        
-                        // Get the corresponding category id.
-                        const categoryId = xAxisValues[pointInGrid[0]];
+                    // Get yAxis data.
+                    const yAxis = model.get("yAxis")[0];
 
-                        // Only one series can match on a category so match categoryId across ALL series' data arrays.
-                        var barDataObj;
+                    // Get the corresponding category id.
+                    const categoryId = xAxisValues[pointInGrid[0]];
 
-                        // If user clicked an arrow.
-                        if (params && params.target && params.target.shape && params.target.shape.symbolType === "arrow") {
-                            // Find the series holding the scatter elements.
-                            const arrow_series = series.find((element) => element.type === "scatter");
-                            if (arrow_series !== undefined) {
-                                // Index of clicked coordinates in xAxis data.
-                                const categoryIndex = xAxes[0].data.findIndex((xAxisData) => xAxisData === categoryId);
+                    // Init.
+                    var barDataObj;
 
-                                // Indexes of category ids to match.
-                                const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData === data[0]));
+                    // If user clicked an arrow.
+                    if (params && params.target && params.target.shape && params.target.shape.symbolType === "arrow") {
+                        // Find the series holding the scatter elements.
+                        const arrow_series = series.find((element) => element.type === "scatter");
+                        if (arrow_series !== undefined) {
+                            // Index of clicked coordinates in xAxis data.
+                            const categoryIndex = xAxes[0].data.findIndex((xAxisData) => xAxisData === categoryId);
 
-                                // Find the category id to match closest to the clicked coordinates' index.
-                                const closestIndexOfScatter = indexesOfScatter.reduce(function (prev, curr) {
-                                    return (Math.abs(curr - categoryIndex) < Math.abs(prev - categoryIndex) ? curr : prev);
-                                });
+                            // Indexes of category ids to match.
+                            const indexesOfScatter = arrow_series.data.map((data) => xAxes[0].data.findIndex((xAxisData) => xAxisData === data[0]));
 
-                                const scatterValue = arrow_series.data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter]);
+                            // Find the category id to match closest to the clicked coordinates' index.
+                            const closestIndexOfScatter = indexesOfScatter.reduce(function (prev, curr) {
+                                return (Math.abs(curr - categoryIndex) < Math.abs(prev - categoryIndex) ? curr : prev);
+                            });
 
-                                if (scatterValue !== undefined) {
-                                    barDataObj = {
-                                        id: scatterValue[0],
-                                        name: scatterValue[2]
-                                    }
+                            const scatterValue = arrow_series.data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter]);
+
+                            if (scatterValue !== undefined) {
+                                barDataObj = {
+                                    id: scatterValue[0],
+                                    name: scatterValue[2]
                                 }
                             }
                         }
+                    }
 
-                        // If clicked point is not an arrow or if barDataObj wasn't found successfully.
-                        if (barDataObj === undefined) {
+                    // If clicked point is not an arrow or if barDataObj wasn't found successfully, take the closest bar's data.
+                    if (barDataObj === undefined) {
+                        // Check that user clicked in the bar graph's area.
+                        // Uses dataZoom to know the boundaries.
+                        if (pointInGrid[0] >= xAxisValues.length * dataZoom.start/100
+                            && pointInGrid[0] <= xAxisValues.length * dataZoom.end/100
+                            && pointInGrid[1] >= yAxis.min
+                            && pointInGrid[1] <= yAxis.max) {
+                            
+                            // Get the corresponding category id.
+                            const categoryId = xAxisValues[pointInGrid[0]];
+                                
                             // Iterate through all series.
                             for (const serie of series) {
                                 // Filter by series type.
@@ -227,14 +234,14 @@ function DashECharts(props) {
                                 }
                             }
                         }
+                    }
 
-                        // If the correct bar has been matched.
-                        if (barDataObj) {
-                            // Set the clicked_bar_data property.
-                            setProps({
-                                clicked_bar_data: barDataObj
-                            })
-                        }
+                    // If the correct bar has been matched.
+                    if (barDataObj) {
+                        // Set the clicked_bar_data property.
+                        setProps({
+                            clicked_bar_data: barDataObj
+                        })
                     }
                 }
             });
