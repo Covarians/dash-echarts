@@ -167,7 +167,14 @@ function DashECharts(props) {
                         end: model.get("dataZoom")[0].end
                     }
 
+                    // Get yAxis data.
                     const yAxis = model.get("yAxis")[0];
+
+                    // Get the corresponding category id.
+                    const categoryId = xAxisValues[pointInGrid[0]];
+
+                    // Init.
+                    var barDataObj;
 
                     // If user clicked an arrow.
                     if (params && params.target && params.target.shape && params.target.shape.symbolType === "arrow") {
