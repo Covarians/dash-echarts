@@ -151,7 +151,7 @@ function DashECharts(props) {
                 const pointInPixel = [params.offsetX, params.offsetY];
                 // Get coordinates in grid.
                 const pointInGrid = myChart.convertFromPixel("grid", pointInPixel);
-                
+
                 // Get xAxes and series.
                 const model = myChart.getModel();
                 const xAxes = model.get("xAxis");
@@ -180,7 +180,7 @@ function DashECharts(props) {
                     if (params && params.target && params.target.shape && params.target.shape.symbolType === "arrow") {
                         // Find the series holding the scatter elements.
                         const arrow_series = series.find((element) => element.type === "scatter");
-                        if (arrow_series !== undefined) {
+                        if (typeof arrow_series !== "undefined") {
                             // Index of clicked coordinates in xAxis data.
                             const categoryIndex = xAxes[0].data.findIndex((xAxisData) => xAxisData === categoryId);
 
@@ -194,7 +194,7 @@ function DashECharts(props) {
 
                             const scatterValue = arrow_series.data.find((x) => x[0] === xAxes[0].data[closestIndexOfScatter]);
 
-                            if (scatterValue !== undefined) {
+                            if (typeof scatterValue !== "undefined") {
                                 barDataObj = {
                                     id: scatterValue[0],
                                     name: scatterValue[2]
@@ -204,17 +204,17 @@ function DashECharts(props) {
                     }
 
                     // If clicked point is not an arrow or if barDataObj wasn't found successfully, take the closest bar's data.
-                    if (barDataObj === undefined) {
+                    if (typeof barDataObj === "undefined") {
                         // Check that user clicked in the bar graph's area.
                         // Uses dataZoom to know the boundaries.
-                        if (pointInGrid[0] >= xAxisValues.length * dataZoom.start/100
-                            && pointInGrid[0] <= xAxisValues.length * dataZoom.end/100
+                        if (pointInGrid[0] >= xAxisValues.length * dataZoom.start / 100
+                            && pointInGrid[0] <= xAxisValues.length * dataZoom.end / 100
                             && pointInGrid[1] >= yAxis.min
                             && pointInGrid[1] <= yAxis.max) {
-                            
+
                             // Get the corresponding category id.
                             const categoryId = xAxisValues[pointInGrid[0]];
-                                
+
                             // Iterate through all series.
                             for (const serie of series) {
                                 // Filter by series type.
