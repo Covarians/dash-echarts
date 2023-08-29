@@ -205,12 +205,12 @@ function DashECharts(props) {
 
                     // If clicked point is not an arrow or if barDataObj wasn't found successfully, take the closest bar's data.
                     if (typeof barDataObj === "undefined") {
-                        // Check that user clicked in the bar graph's area.
+                        // Check that user clicked in the bar graph area.
                         // Uses dataZoom to know the boundaries.
+                        // Can't test on yAxis max as it is not always defined, so a click over the graph area will still trigger.
                         if (pointInGrid[0] >= xAxisValues.length * dataZoom.start / 100
                             && pointInGrid[0] <= xAxisValues.length * dataZoom.end / 100
-                            && pointInGrid[1] >= yAxis.min
-                            && pointInGrid[1] <= yAxis.max) {
+                            && pointInGrid[1] >= yAxis.min) {
 
                             // Get the corresponding category id.
                             const categoryId = xAxisValues[pointInGrid[0]];
