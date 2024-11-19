@@ -218,7 +218,7 @@ function DashECharts(props) {
                             // Iterate through all series.
                             for (const serie of series) {
                                 // Filter by series type and don't take the series named "Selected".
-                                if (serie.type === "bar" && series.name !== "Selected") {
+                                if (serie.type === "bar" && serie.name !== "Selected") {
                                     // Iterate through a series' data.
                                     for (const data_elt of serie.data) {
                                         // If the first element of data of the series matches with categoryId, it's the one we were searching for. 
