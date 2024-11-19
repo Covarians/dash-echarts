@@ -5,7 +5,7 @@ import * as echarts from 'echarts';
 import * as ramda from 'ramda';
 import * as ecStat from 'echarts-stat';
 import bmap from 'echarts/extension/bmap/bmap';
-import 'mapbox-gl/dist/mapbox-gl.css';
+//import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 
 
@@ -221,7 +221,7 @@ function DashECharts(props) {
                                 if (serie.type === "bar" && series.name !== "Selected") {
                                     // Iterate through a series' data.
                                     for (const data_elt of serie.data) {
-                                        // If the first element of data of the series matches with categoryId, it's the on we were searching for. 
+                                        // If the first element of data of the series matches with categoryId, it's the one we were searching for. 
                                         // Category name is at index 4.
                                         if (data_elt.value[0] === categoryId) {
                                             barDataObj = {

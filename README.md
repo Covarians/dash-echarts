@@ -38,7 +38,7 @@ useEffect(() => {
 <br />
 
 ### 6. To install in your dash project : 
-    pip install git+https://github.com/Covarians/dash-echarts@Dev_dataZoom
+    pip install git+https://github.com/Covarians/dash-echarts.git@dev
 
 ### 7. Debug using the original source files :
     Using Chrome DevTools : go to settings, check "Enable JavaScript source maps" under "Sources".
