@@ -5,7 +5,7 @@ import * as echarts from 'echarts';
 import * as ramda from 'ramda';
 import * as ecStat from 'echarts-stat';
 import bmap from 'echarts/extension/bmap/bmap';
-//import 'mapbox-gl/dist/mapbox-gl.css';
+// import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 
 
@@ -18,7 +18,14 @@ const loadFuns = (obj) => {
     })
 }
 
-function DashECharts(props) {
+/**
+ * ExampleComponent is an example component.
+ * It takes a property, `label`, and
+ * displays it.
+ * It renders an input with the property `value`
+ * which is editable by the user.
+ */
+const DashEcharts = (props) => {
     const {
         // eslint-disable-next-line no-unused-vars
         n_clicks, n_clicks_timestamp, click_data, zoom_data,
@@ -33,6 +40,8 @@ function DashECharts(props) {
         mapbox_token, bmap_token,
         resize_id,
         reset_id,
+        yAxisRightClick,// yAxis has been right clicked, send this axis index and min/max values to Dash
+        yAxisResize,    // yAxis resize, values sent from Dash
     } = props;
 
 
@@ -268,6 +277,45 @@ function DashECharts(props) {
             });
         }
 
+        /* Register to Echart right click event on yAxis to change its extent (min & max) */
+        myChart.on("contextmenu", params => {
+            const data = ramda.pick([
+                'componentType', 'componentIndex',
+            ], params)
+
+            // Pass the yAxis right click event to Dash.
+            if (data.componentType === 'yAxis') {
+                // Prevent the right click event propagation.
+                params.event.event.preventDefault();
+
+                // Get the yAxis extent (its min & max actual displayed values).
+                const yAxisIndex = data.componentIndex;
+
+                // Get yAxes.
+                const yAxes = myChart.getModel().findComponents({
+                    mainType: 'yAxis'
+                });
+
+                // Check if the yAxis index is valid.
+                if (yAxes && yAxes.length > yAxisIndex) {
+                    // Get the extent of the yAxis.
+                    const yAxisExtent = yAxes[yAxisIndex].axis.scale.getExtent();
+                                    
+                    // Extract the min and max values.
+                    const minY = yAxisExtent[0];
+                    const maxY = yAxisExtent[1];
+
+                    // Get the corresponding series name.
+                    const seriesName = myChart.getModel().option.series.find(s => s.yAxisIndex === yAxisIndex)?.name;
+
+                    // Return props. Added timestamp (unique) so that Dash will detect the event even if other values didn't change.
+                    setProps({
+                        yAxisRightClick: {index: yAxisIndex, name: seriesName, min: minY, max: maxY, ts: Date.now()}
+                    });
+                }
+            }
+        });
+
         myChart.on("datazoom", e => {
             const ts = Date.now()
             const d = e.batch ? e.batch[0] : e;
@@ -419,6 +467,51 @@ function DashECharts(props) {
         }
     }, [resize_id])
 
+
+    /* Effect hook to modify yAxis extent and reset dataZoom */
+    useEffect(() => {
+        if (!ramda.isEmpty(chart)){
+            const data = ramda.pick([
+                'index', 'min', 'max'
+            ], yAxisResize)
+
+            // Check if the data is valid.
+            if (data.index !== undefined && data.min !== undefined && data.max !== undefined) {
+                // Get yAxes.
+                const yAxes = chart.getModel().option.yAxis.filter(yAxis => yAxis !== undefined);
+
+                // Check if the yAxis index is valid.
+                if (yAxes.length > data.index) {
+                    const yAxis = yAxes[data.index];
+
+                    // yAxis will be matched by id, to update min and max.
+                    let opt = {
+                        'yAxis': {
+                            id: yAxis.id, 
+                            min: data.min, 
+                            max: data.max
+                        }
+                    };
+                    
+                    // If the yAxis has a dataZoom, reset it.
+                    // Don't modify its visibilty (the "show" property).
+                    let yAxisDataZoom = chart.getModel().option.dataZoom.find(dz => dz && dz.yAxisIndex === data.index);
+
+                    if (yAxisDataZoom) {
+                        opt.dataZoom = {
+                            id: yAxisDataZoom.id,
+                            start: 0,
+                            end: 100
+                        }
+                    }
+
+                    chart.setOption(opt);
+                }
+            }
+        }
+    }, [yAxisResize])
+
+
     useEffect(() => {
         if (!ramda.isEmpty(chart)) {
             if (reset_id > 0) {
@@ -431,9 +524,9 @@ function DashECharts(props) {
     return (
         <div id={id} style={style} ref={chartRef} />
     );
-}
+};
 
-DashECharts.defaultProps = {
+DashEcharts.defaultProps = {
     resize_id: 0,
     reset_id: 0,
     n_clicks: 0,
@@ -458,9 +551,11 @@ DashECharts.defaultProps = {
     funs: {},
     mapbox_token: null,
     bmap_token: null,
+    yAxisRightClick: {},
+    yAxisResize: {},
 };
 
-DashECharts.propTypes = {
+DashEcharts.propTypes = {
     resize_id: PropTypes.number,
     reset_id: PropTypes.number,
     n_clicks: PropTypes.number,
@@ -494,8 +589,20 @@ DashECharts.propTypes = {
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
      */
-    setProps: PropTypes.func
+    setProps: PropTypes.func,
+
+    /**
+     * Send yAxisIndex, min and max after yAxis right click event
+     */
+    yAxisRightClick: PropTypes.object,
+
+    /**
+     * Receive yAxisIndex, min and max to resize yAxis
+     */
+    yAxisResize: PropTypes.object,
 };
 
+export default DashEcharts;
 
-export default DashECharts;
+export const defaultProps = DashEcharts.defaultProps;
+export const propTypes = DashEcharts.propTypes;

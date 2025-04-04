@@ -1,16 +1,16 @@
 % Auto-generated: do not edit by hand
-\name{''DashECharts}
+\name{''DashEcharts}
 
-\alias{''DashECharts}
+\alias{''DashEcharts}
 
-\title{DashECharts component}
+\title{DashEcharts component}
 
 \description{
-
+ExampleComponent is an example component. It takes a property, `label`, and displays it. It renders an input with the property `value` which is editable by the user.
 }
 
 \usage{
-''DashECharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
+''DashEcharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
 brush_data=NULL, click_data=NULL, clicked_bar_data=NULL,
 enable_get_clicked_bar_data_event=NULL, event=NULL,
 fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
@@ -18,7 +18,8 @@ fun_prepares=NULL, fun_values=NULL, funs=NULL,
 mapbox_token=NULL, maps=NULL, n_clicks=NULL,
 n_clicks_timestamp=NULL, opt_merge=NULL, option=NULL,
 part_of_opt=NULL, reset_id=NULL, resize_id=NULL,
-selected_data=NULL, style=NULL, zoom_data=NULL)
+selected_data=NULL, style=NULL, yAxisResize=NULL,
+yAxisRightClick=NULL, zoom_data=NULL)
 }
 
 \arguments{
@@ -71,6 +72,10 @@ selected_data=NULL, style=NULL, zoom_data=NULL)
 \item{selected_data}{Named list. }
 
 \item{style}{Named list. }
+
+\item{yAxisResize}{Named list. Receive yAxisIndex, min and max to resize yAxis}
+
+\item{yAxisRightClick}{Named list. Send yAxisIndex, min and max after yAxis right click event}
 
 \item{zoom_data}{Named list. }
 }

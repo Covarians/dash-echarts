@@ -1,11 +1,22 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
-class DashECharts(Component):
-    """A DashECharts component.
-
+class DashEcharts(Component):
+    """A DashEcharts component.
+ExampleComponent is an example component.
+It takes a property, `label`, and
+displays it.
+It renders an input with the property `value`
+which is editable by the user.
 
 Keyword arguments:
 
@@ -58,22 +69,58 @@ Keyword arguments:
 
 - selected_data (dict; optional)
 
-- style (dict; optional)
+- yAxisResize (dict; optional):
+    Receive yAxisIndex, min and max to resize yAxis.
+
+- yAxisRightClick (dict; optional):
+    Send yAxisIndex, min and max after yAxis right click event.
 
 - zoom_data (dict; optional)"""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'dash_echarts'
-    _type = 'DashECharts'
+    _type = 'DashEcharts'
+
     @_explicitize_args
-    def __init__(self, resize_id=Component.UNDEFINED, reset_id=Component.UNDEFINED, n_clicks=Component.UNDEFINED, n_clicks_timestamp=Component.UNDEFINED, click_data=Component.UNDEFINED, zoom_data=Component.UNDEFINED, selected_data=Component.UNDEFINED, brush_data=Component.UNDEFINED, brushSelected_data=Component.UNDEFINED, style=Component.UNDEFINED, event=Component.UNDEFINED, option=Component.UNDEFINED, opt_merge=Component.UNDEFINED, part_of_opt=Component.UNDEFINED, enable_get_clicked_bar_data_event=Component.UNDEFINED, clicked_bar_data=Component.UNDEFINED, maps=Component.UNDEFINED, funs=Component.UNDEFINED, fun_keys=Component.UNDEFINED, fun_values=Component.UNDEFINED, fun_paths=Component.UNDEFINED, fun_effects=Component.UNDEFINED, fun_prepares=Component.UNDEFINED, mapbox_token=Component.UNDEFINED, bmap_token=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'clicked_bar_data', 'enable_get_clicked_bar_data_event', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'part_of_opt', 'reset_id', 'resize_id', 'selected_data', 'style', 'zoom_data']
+    def __init__(
+        self,
+        resize_id: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        reset_id: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        n_clicks: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        n_clicks_timestamp: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        click_data: typing.Optional[dict] = None,
+        zoom_data: typing.Optional[dict] = None,
+        selected_data: typing.Optional[dict] = None,
+        brush_data: typing.Optional[dict] = None,
+        brushSelected_data: typing.Optional[dict] = None,
+        style: typing.Optional[typing.Any] = None,
+        event: typing.Optional[dict] = None,
+        option: typing.Optional[dict] = None,
+        opt_merge: typing.Optional[dict] = None,
+        part_of_opt: typing.Optional[dict] = None,
+        enable_get_clicked_bar_data_event: typing.Optional[bool] = None,
+        clicked_bar_data: typing.Optional[dict] = None,
+        maps: typing.Optional[dict] = None,
+        funs: typing.Optional[dict] = None,
+        fun_keys: typing.Optional[typing.Sequence] = None,
+        fun_values: typing.Optional[typing.Sequence] = None,
+        fun_paths: typing.Optional[dict] = None,
+        fun_effects: typing.Optional[typing.Sequence] = None,
+        fun_prepares: typing.Optional[typing.Sequence] = None,
+        mapbox_token: typing.Optional[str] = None,
+        bmap_token: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
+        yAxisRightClick: typing.Optional[dict] = None,
+        yAxisResize: typing.Optional[dict] = None,
+        **kwargs
+    ):
+        self._prop_names = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'clicked_bar_data', 'enable_get_clicked_bar_data_event', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'part_of_opt', 'reset_id', 'resize_id', 'selected_data', 'style', 'yAxisResize', 'yAxisRightClick', 'zoom_data']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'clicked_bar_data', 'enable_get_clicked_bar_data_event', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'part_of_opt', 'reset_id', 'resize_id', 'selected_data', 'style', 'zoom_data']
+        self.available_properties = ['id', 'bmap_token', 'brushSelected_data', 'brush_data', 'click_data', 'clicked_bar_data', 'enable_get_clicked_bar_data_event', 'event', 'fun_effects', 'fun_keys', 'fun_paths', 'fun_prepares', 'fun_values', 'funs', 'mapbox_token', 'maps', 'n_clicks', 'n_clicks_timestamp', 'opt_merge', 'option', 'part_of_opt', 'reset_id', 'resize_id', 'selected_data', 'style', 'yAxisResize', 'yAxisRightClick', 'zoom_data']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args}
 
-        super(DashECharts, self).__init__(**args)
+        super(DashEcharts, self).__init__(**args)

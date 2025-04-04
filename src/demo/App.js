@@ -1,32 +1,24 @@
 /* eslint no-magic-numbers: 0 */
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 
-import { DashECharts } from '../lib';
+import { DashEcharts } from '../lib';
 
-class App extends Component {
+const App = () => {
 
-    constructor() {
-        super();
-        this.state = {
-            value: ''
+    const [state, setState] = useState({value:'', label:'Type Here'});
+    const setProps = (newProps) => {
+            setState(newProps);
         };
-        // this.setProps = this.setProps.bind(this);
-    }
 
-    setProps(newProps) {
-        this.setState(newProps);
-    }
+    return (
+        <div>
+            <DashEcharts
+                setProps={setProps}
+                {...state}
+            />
+        </div>
+    )
+};
 
-    render() {
-        return (
-            <div>
-                <DashECharts
-                    setProps={this.setProps}
-                    {...this.state}
-                />
-            </div>
-        )
-    }
-}
 
 export default App;

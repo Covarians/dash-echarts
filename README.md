@@ -1,206 +1,98 @@
 # dash_echarts
 
-## Covarians
-### 1. Clone repository and install packages :
-    clone
-    pip install dash
-    pip install pyyaml
-    npm install webpack
+dash_echarts is a Dash component library.
 
-### 2. Change version number :
-    Change version number in package.json only.
+echarts for dash
 
-### 3. Modify :
-    To create a new property, you only have to add it in src/lib/components/DashECharts.react.js in 3 places :
-        1. function DashECharts(props)  {const {}}
-        2. DashECharts.defaultProps
-        3. DashECharts.propTypes
+Get started with:
+1. Install Dash and its dependencies: https://dash.plotly.com/installation
+2. Run `python usage.py`
+3. Visit http://localhost:8050 in your web browser
 
-    All the other files containing the properties will be updated when compiling (see 4.).
+## Contributing
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-    To get an effect when the property "new_prop" is modified, add a useEffect block in function DashECharts(props)  {const {}} as follows :
-```python
-useEffect(() => {
-    if (!ramda.isEmpty(chart)) {
-        // Your code here, use variable new_prop to get the new value.
-    }
-    return () => {
-    }
-}, [new_prop])
-```
+### Install dependencies
 
-### 4. Compile :
-    npm install
-    npm run build
+If you have selected install_dependencies during the prompt, you can skip this part.
 
-### 5. Commit and push with VSC Source Control tab.
-<br />
+1. Install npm packages
+    ```
+    $ npm install
+    ```
+2. Create a virtual env and activate.
+    ```
+    $ virtualenv venv
+    $ . venv/bin/activate
+    ```
+    _Note: venv\Scripts\activate for windows_
 
-### 6. To install in your dash project : 
-    pip install git+https://github.com/Covarians/dash-echarts.git@dev
+3. Install python packages required to build components.
+    ```
+    $ pip install -r requirements.txt
+    ```
+4. Install the python packages for testing (optional)
+    ```
+    $ pip install -r tests/requirements.txt
+    ```
 
-### 7. Debug using the original source files :
-    Using Chrome DevTools : go to settings, check "Enable JavaScript source maps" under "Sources".
+### Write your component code in `src/lib/components/DashEcharts.react.js`.
 
-<br /><br /><br />
+- The demo app is in `src/demo` and you will import your example component code into your demo app.
+- Test your code in a Python environment:
+    1. Build your code
+        ```
+        $ npm run build
+        ```
+    2. Run and modify the `usage.py` sample dash app:
+        ```
+        $ python usage.py
+        ```
+- Write tests for your component.
+    - A sample test is available in `tests/test_usage.py`, it will load `usage.py` and you can then automate interactions with selenium.
+    - Run the tests with `$ pytest tests`.
+    - The Dash team uses these types of integration tests extensively. Browse the Dash component code on GitHub for more examples of testing (e.g. https://github.com/plotly/dash-core-components)
+- Add custom styles to your component by putting your custom CSS files into your distribution folder (`dash_echarts`).
+    - Make sure that they are referenced in `MANIFEST.in` so that they get properly included when you're ready to publish your component.
+    - Make sure the stylesheets are added to the `_css_dist` dict in `dash_echarts/__init__.py` so dash will serve them automatically when the component suite is requested.
+- [Review your code](./review_checklist.md)
 
-## gallery
+### Create a production build and publish:
 
-if you install it via `pip install 'dash_echarts[play]'`, 
-you can run the command `echarts_play` to see the gallery demo! 
+1. Build your code:
+    ```
+    $ npm run build
+    ```
+2. Create a Python distribution
+    ```
+    $ python setup.py sdist bdist_wheel
+    ```
+    This will create source and wheel distribution in the generated the `dist/` folder.
+    See [PyPA](https://packaging.python.org/guides/distributing-packages-using-setuptools/#packaging-your-project)
+    for more information.
 
+3. Test your tarball by copying it into a new environment and installing it locally:
+    ```
+    $ pip install dash_echarts-0.0.1.tar.gz
+    ```
 
-## demo
+4. If it works, then you can publish the component to NPM and PyPI:
+    1. Publish on PyPI
+        ```
+        $ twine upload dist/*
+        ```
+    2. Cleanup the dist folder (optional)
+        ```
+        $ rm -rf dist
+        ```
+    3. Publish on NPM (Optional if chosen False in `publish_on_npm`)
+        ```
+        $ npm publish
+        ```
+        _Publishing your component to NPM will make the JavaScript bundles available on the unpkg CDN. By default, Dash serves the component library's CSS and JS locally, but if you choose to publish the package to NPM you can set `serve_locally` to `False` and you may see faster load times._
 
-![](dash_echarts_stocks.gif)
-
-## try it out
-
-step 1. run command
-
-```
-pip install 'dash_echarts[play]'
-```
-
-step 2. run command
-
-```
-echarts_line
-```
-
-step 3. access url
-
-```
-http://127.0.0.1:8050/
-```
-
-![](dash_echarts_line.gif)
-
-step 4. explore others
-
-run other commands
-
-```
-echarts_play
-echarts_bar
-echarts_heat
-echarts_map
-echarts_scatter3d
-echarts_histbar
-echarts_regression
-echarts_customprofit
-echarts_line_race
-echarts_bar_race
-echarts_bar_style
-```
-
-![](dash_echarts_bar.gif)
-
-![](dash_echarts_map.gif)
-
-![](dash_echarts_heat.gif)
-
-![](dash_echarts_scatter3d.gif)
-
-![](dash_echarts_histbar.gif)
-
-![](dash_echarts_air.gif)
-
-![](dash_echarts_mapbox_bar3d.gif)
-
-> contact the author for commercial dashboard support!
-
-## how to install
-
-```bash
-pip install dash_echarts
-```
-
-## release notes
-
-- 0.0.12 fix bugs of resizing events, add a gallery demo
-  - this will be the last version before the 0.1.0
-  - the gallery app is now in alpha
-- 0.0.11 fix bugs of echarts' event not updating the dash components, use click_data for receiving event from echarts 
-- 0.0.10 remove dependencies of echarts-for-react, enable mapbox-gl!
-  notes: remove deprecated events for versions after 0.0.9
-- 0.0.9 enable baidu bmap & add echarts_air example
-- 0.0.8 enchance funs & add ecStat support
-- 0.0.7(0.0.6) add funs, fun_keys, fun_paths & disable fun_formatter
-- 0.0.5 add fun_formatter(testing) feature & gl support & more examples
-- 0.0.4 add map demo
-- 0.0.3 first mvp
-
-## full example
-
-```python
-import dash_echarts
-import dash, random
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
-from dash.exceptions import PreventUpdate
-
-
-def gen_randlist(num):
-    return random.sample(range(num), 7)
-
-
-def main():
-    '''
-    dash_echarts examples
-    name: smooth line with echarts
-    author: dameng <pingf0@gmail.com>
-    '''
-    app = dash.Dash(__name__)
-
-    option =  {
-        'xAxis': {
-            'type': 'category',
-            'data': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        'yAxis': {
-            'type': 'value'
-        },
-        'series': [{
-            'data': gen_randlist(200),
-            'type': 'line',
-            'smooth': True
-        }, {
-            'data': gen_randlist(200),
-            'type': 'line',
-            'smooth': True
-        }]
-    } 
-    events = []
-
-    app.layout = html.Div([
-        dash_echarts.DashECharts(
-            option = option,
-            events = events,
-            id='echarts',
-            style={
-                "width": '100vw',
-                "height": '100vh',
-            }
-        ),
-        dcc.Interval(id="interval", interval=1 * 1000, n_intervals=0),
-    ])
-
-
-    @app.callback(
-        Output('echarts', 'option'),
-        [Input('interval', 'n_intervals')])
-    def update(n_intervals):
-        if n_intervals == 0:
-            raise PreventUpdate
-        else:
-            option['series'][0]['data'] = gen_randlist(200)
-            option['series'][1]['data'] = gen_randlist(200)
-        return option
-    app.run_server(debug=True)
-
-if __name__ == '__main__':
-    main()
-```
+5. Share your component with the community! https://community.plotly.com/c/dash
+    1. Publish this repository to GitHub
+    2. Tag your GitHub repository with the plotly-dash tag so that it appears here: https://github.com/topics/plotly-dash
+    3. Create a post in the Dash community forum: https://community.plotly.com/c/dash

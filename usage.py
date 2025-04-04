@@ -1,59 +1,22 @@
 import dash_echarts
-import dash, random
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
-from dash.exceptions import PreventUpdate
+from dash import Dash, callback, html, Input, Output
 
-def gen_randlist(num):
-    return random.sample(range(num), 7)
-
-app = dash.Dash(__name__)
-
-option =  {
-    'xAxis': {
-        'type': 'category',
-        'data': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    'yAxis': {
-        'type': 'value'
-    },
-    'series': [{
-        'data': gen_randlist(200),
-        'type': 'line',
-        'smooth': True
-    }, {
-        'data': gen_randlist(200),
-        'type': 'line',
-        'smooth': True
-    }]
-} 
-events = []
+app = Dash(__name__)
 
 app.layout = html.Div([
-    dash_echarts.DashECharts(
-        option = option,
-        events = events,
-        id='echarts',
-        style={
-            "width": '100vw',
-            "height": '100vh',
-        }
+    dash_echarts.DashEcharts(
+        id='input',
+        value='my-value',
+        label='my-label'
     ),
-    dcc.Interval(id="interval", interval=1 * 1000, n_intervals=0),
+    html.Div(id='output')
 ])
 
 
-@app.callback(
-    Output('echarts', 'option'),
-    [Input('interval', 'n_intervals')])
-def update(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        option['series'][0]['data'] = gen_randlist(200)
-        option['series'][1]['data'] = gen_randlist(200)
-    return option
+@callback(Output('output', 'children'), Input('input', 'value'))
+def display_output(value):
+    return 'You have entered {}'.format(value)
+
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
