@@ -41,13 +41,18 @@ Install npm packages (mapbox-gl, echarts-stat etc):
 
 
 After cloning the repo, at its root:
+
 Install node modules:
 > npm install
+
 Create a virtual environment named .venv
 > python -m venv .venv
-Activarte the virtual environment
+
+Activate the virtual environment
 > .venv/Scripts/activate
+
 Install required packages in the virtual environment
 (.venv) > pip install -r requirements.txt
+
 Build the module:
 > npm run build

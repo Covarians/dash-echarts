@@ -3,7 +3,7 @@ module DashEcharts
 using Dash
 
 const resources_path = realpath(joinpath( @__DIR__, "..", "deps"))
-const version = "0.0.1"
+const version = "2.0.0"
 
 include("jl/''_dashecharts.jl")
 
@@ -16,14 +16,14 @@ function __init__()
             [
                 DashBase.Resource(
     relative_package_path = "async-DashEcharts.js",
-    external_url = "https://unpkg.com/dash_echarts@0.0.1/dash_echarts/async-DashEcharts.js",
+    external_url = "https://unpkg.com/dash_echarts@2.0.0/dash_echarts/async-DashEcharts.js",
     dynamic = nothing,
     async = :true,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "async-DashEcharts.js.map",
-    external_url = "https://unpkg.com/dash_echarts@0.0.1/dash_echarts/async-DashEcharts.js.map",
+    external_url = "https://unpkg.com/dash_echarts@2.0.0/dash_echarts/async-DashEcharts.js.map",
     dynamic = true,
     async = nothing,
     type = :js
