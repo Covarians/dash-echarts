@@ -120,7 +120,7 @@ Configure the cookiecutter:
 You've downloaded C:\Users\Victor\.cookiecutters\dash-component-boilerplate before. Is it okay to delete and re-download it? [y/n] (y): 
   [1/14] project_name (my dash component): dash_echarts
   [2/14] project_shortname (dash_echarts): 
-  [3/14] component_name (DashEcharts): 
+  [3/14] component_name (DashEcharts): DashECharts
   [4/14] jl_prefix (): 
   [5/14] r_prefix (): 
   [6/14] author_name (Enter your first and last name (For package.json)): Covarians
