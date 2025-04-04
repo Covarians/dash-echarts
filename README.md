@@ -1,43 +1,44 @@
 # dash_echarts
 
-dash_echarts is a Dash component library.
-
-echarts for dash
-
-Get started with:
-1. Install Dash and its dependencies: https://dash.plotly.com/installation
-2. Run `python usage.py`
-3. Visit http://localhost:8050 in your web browser
+dash_echarts is a Dash component library to access echarts from dash.
 
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-### Install dependencies
+# How to use the module
+## Cloning and installing package
+After cloning the repo, at its root:
 
-If you have selected install_dependencies during the prompt, you can skip this part.
+1. Install node modules:
+```
+$ npm install
+```
 
-1. Install npm packages
-    ```
-    $ npm install
-    ```
-2. Create a virtual env and activate.
-    ```
-    $ virtualenv venv
-    $ . venv/bin/activate
-    ```
-    _Note: venv\Scripts\activate for windows_
+2. Create a virtual environment named .venv
+```
+$ python -m venv .venv
+```
 
-3. Install python packages required to build components.
-    ```
-    $ pip install -r requirements.txt
-    ```
-4. Install the python packages for testing (optional)
-    ```
-    $ pip install -r tests/requirements.txt
-    ```
+3. Activate the virtual environment
+```
+$ .venv/Scripts/activate
+```
 
-### Write your component code in `src/lib/components/DashEcharts.react.js`.
+4. Install required packages in the virtual environment
+```
+(.venv) $ pip install -r requirements.txt
+```
+
+
+## Updating the component's code in `src/lib/components/DashEcharts.react.js`
+
+## Building the module
+```
+(.venv) $ npm run build
+```
+
+## Testing
 
 - The demo app is in `src/demo` and you will import your example component code into your demo app.
 - Test your code in a Python environment:
@@ -58,7 +59,8 @@ If you have selected install_dependencies during the prompt, you can skip this p
     - Make sure the stylesheets are added to the `_css_dist` dict in `dash_echarts/__init__.py` so dash will serve them automatically when the component suite is requested.
 - [Review your code](./review_checklist.md)
 
-### Create a production build and publish:
+
+## Create a production build and publish
 
 1. Build your code:
     ```
@@ -96,3 +98,57 @@ If you have selected install_dependencies during the prompt, you can skip this p
     1. Publish this repository to GitHub
     2. Tag your GitHub repository with the plotly-dash tag so that it appears here: https://github.com/topics/plotly-dash
     3. Create a post in the Dash community forum: https://community.plotly.com/c/dash
+
+<br>
+
+# How to create this project with Cookiecutter 2.6.0
+Documentation for cookiecutter use with dash component boilerplate can be found here: https://github.com/plotly/dash-component-boilerplate
+
+Install Cookiecutter:
+```
+$ pip install cookiecutter
+```
+
+Run the cookiecutter:
+
+```
+$ cookiecutter gh:plotly/dash-component-boilerplate
+```
+
+Configure the cookiecutter:
+```
+You've downloaded C:\Users\Victor\.cookiecutters\dash-component-boilerplate before. Is it okay to delete and re-download it? [y/n] (y): 
+  [1/14] project_name (my dash component): dash_echarts
+  [2/14] project_shortname (dash_echarts): 
+  [3/14] component_name (DashEcharts): 
+  [4/14] jl_prefix (): 
+  [5/14] r_prefix (): 
+  [6/14] author_name (Enter your first and last name (For package.json)): Covarians
+  [7/14] author_email (Enter your email (For package.json)): dirtech@covarians.eu
+  [8/14] github_org (): 
+  [9/14] description (Project Description): echarts for dash
+  [10/14] Select use_async
+    1 - False
+    2 - True
+    Choose from [1/2] (1): 2
+  [11/14] Select component_type
+    1 - Function Component
+    2 - Class Component
+    Choose from [1/2] (1): 
+  [12/14] Select license
+    1 - MIT License
+    2 - BSD License
+    3 - ISC License
+    4 - Apache Software License 2.0
+    5 - GNU General Public License v3
+    6 - Not open source
+    Choose from [1/2/3/4/5/6] (1): 6
+  [13/14] publish_on_npm [y/n] (y): n
+  [14/14] install_dependencies [y/n] (y): 
+```
+
+Install all npm packages required by the project (eg echarts):
+
+```
+$ npm install echarts
+```
