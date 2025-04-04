@@ -3,7 +3,7 @@ Everything is documented here.
 
 Documentation for cookiecutter use with dash component boilerplate can be found here: https://github.com/plotly/dash-component-boilerplate
 
-Run the cookiecutter and :
+Run the cookiecutter and configure it:
 
 > cookiecutter gh:plotly/dash-component-boilerplate                                                                                                                                                                          
 You've downloaded C:\Users\Victor\.cookiecutters\dash-component-boilerplate before. Is it okay to delete and re-download it? [y/n] (y): 
@@ -38,3 +38,16 @@ You've downloaded C:\Users\Victor\.cookiecutters\dash-component-boilerplate befo
 Install npm packages (mapbox-gl, echarts-stat etc):
 > npm install echarts
 
+
+
+After cloning the repo, at its root:
+Install node modules:
+> npm install
+Create a virtual environment named .venv
+> python -m venv .venv
+Activarte the virtual environment
+> .venv/Scripts/activate
+Install required packages in the virtual environment
+(.venv) > pip install -r requirements.txt
+Build the module:
+> npm run build
