@@ -1,5 +1,5 @@
-from .DashEcharts import DashEcharts
+from .DashECharts import DashECharts
 
 __all__ = [
-    "DashEcharts"
+    "DashECharts"
 ]

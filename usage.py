@@ -4,7 +4,7 @@ from dash import Dash, callback, html, Input, Output
 app = Dash(__name__)
 
 app.layout = html.Div([
-    dash_echarts.DashEcharts(
+    dash_echarts.DashECharts(
         id='input',
         value='my-value',
         label='my-label'

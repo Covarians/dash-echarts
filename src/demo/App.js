@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: 0 */
 import React, { useState } from 'react';
 
-import { DashEcharts } from '../lib';
+import { DashECharts } from '../lib';
 
 const App = () => {
 
@@ -12,7 +12,7 @@ const App = () => {
 
     return (
         <div>
-            <DashEcharts
+            <DashECharts
                 setProps={setProps}
                 {...state}
             />

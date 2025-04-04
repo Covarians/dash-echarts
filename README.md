@@ -109,7 +109,7 @@ Install Cookiecutter:
 $ pip install cookiecutter
 ```
 
-Run the cookiecutter:
+Run the cookiecutter, which will create the project folder:
 
 ```
 $ cookiecutter gh:plotly/dash-component-boilerplate
@@ -120,13 +120,13 @@ Configure the cookiecutter:
 You've downloaded C:\Users\Victor\.cookiecutters\dash-component-boilerplate before. Is it okay to delete and re-download it? [y/n] (y): 
   [1/14] project_name (my dash component): dash_echarts
   [2/14] project_shortname (dash_echarts): 
-  [3/14] component_name (DashEcharts): DashEcharts
+  [3/14] component_name (DashEcharts): DashECharts
   [4/14] jl_prefix (): 
   [5/14] r_prefix (): 
   [6/14] author_name (Enter your first and last name (For package.json)): Covarians
   [7/14] author_email (Enter your email (For package.json)): dirtech@covarians.eu
   [8/14] github_org (): 
-  [9/14] description (Project Description): echarts for dash
+  [9/14] description (Project Description): ECharts for Dash
   [10/14] Select use_async
     1 - False
     2 - True
@@ -147,8 +147,24 @@ You've downloaded C:\Users\Victor\.cookiecutters\dash-component-boilerplate befo
   [14/14] install_dependencies [y/n] (y): 
 ```
 
-Install all npm packages required by the project (eg echarts):
+Open the created folder (dash_echarts) in VSC.
 
+Try to install packages in the package-lock.json file:
 ```
-$ npm install echarts
+$ npm install
+```
+
+Install all npm packages required by the project and not yet in the package-lock.json file:
+```
+$ npm install echarts echarts-gl echarts-stat mapbox-gl
+```
+
+Activate the Python virtual environment:
+```
+$ venv/Scripts/Activate
+```
+
+Build the module (to check that there are no errors):
+```
+(venv) $ npm run build
 ```

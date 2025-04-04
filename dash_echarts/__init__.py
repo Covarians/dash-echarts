@@ -28,7 +28,7 @@ _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
 _this_module = _sys.modules[__name__]
 
-async_resources = ["DashEcharts",]
+async_resources = ["DashECharts",]
 
 _js_dist = []
 

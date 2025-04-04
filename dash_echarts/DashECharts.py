@@ -10,8 +10,8 @@ except ImportError:
     ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
-class DashEcharts(Component):
-    """A DashEcharts component.
+class DashECharts(Component):
+    """A DashECharts component.
 ExampleComponent is an example component.
 It takes a property, `label`, and
 displays it.
@@ -79,7 +79,7 @@ Keyword arguments:
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'dash_echarts'
-    _type = 'DashEcharts'
+    _type = 'DashECharts'
 
     @_explicitize_args
     def __init__(
@@ -123,4 +123,4 @@ Keyword arguments:
         _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args}
 
-        super(DashEcharts, self).__init__(**args)
+        super(DashECharts, self).__init__(**args)

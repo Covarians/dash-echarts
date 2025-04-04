@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const DashEcharts = React.lazy(() => import(/* webpackChunkName: "DashEcharts" */ './fragments/DashEcharts.react'));
+export const DashECharts = React.lazy(() => import(/* webpackChunkName: "DashECharts" */ './fragments/DashECharts.react'));

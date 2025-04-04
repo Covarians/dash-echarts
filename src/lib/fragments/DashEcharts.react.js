@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  * It renders an input with the property `value`
  * which is editable by the user.
  */
-const DashEcharts = (props) => {
+const DashECharts = (props) => {
     const {id, label, setProps, value} = props;
 
     const handleInputChange = (e) => {
@@ -35,9 +35,9 @@ const DashEcharts = (props) => {
     );
 }
 
-DashEcharts.defaultProps = {};
+DashECharts.defaultProps = {};
 
-DashEcharts.propTypes = {
+DashECharts.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
@@ -60,4 +60,4 @@ DashEcharts.propTypes = {
     setProps: PropTypes.func
 };
 
-export default DashEcharts;
+export default DashECharts;
