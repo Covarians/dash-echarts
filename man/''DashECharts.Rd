@@ -1,16 +1,16 @@
 % Auto-generated: do not edit by hand
-\name{''DashECharts}
+\name{''DashEcharts}
 
-\alias{''DashECharts}
+\alias{''DashEcharts}
 
-\title{DashECharts component}
+\title{DashEcharts component}
 
 \description{
 ExampleComponent is an example component. It takes a property, `label`, and displays it. It renders an input with the property `value` which is editable by the user.
 }
 
 \usage{
-''DashECharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
+''DashEcharts(id=NULL, bmap_token=NULL, brushSelected_data=NULL,
 brush_data=NULL, click_data=NULL, clicked_bar_data=NULL,
 enable_get_clicked_bar_data_event=NULL, event=NULL,
 fun_effects=NULL, fun_keys=NULL, fun_paths=NULL,
